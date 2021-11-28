@@ -1,10 +1,12 @@
-#+TITLE: Hannover Night Theme
+#+TITLE: Hannover Night Emacs Theme
 #+AUTHOR: Florian Rommel
 #+LANGUAGE: en
 
-* Introduction
+[[./images/lisp.svg]]
 
-A dark theme with moderate contrast.
+[[./images/org.svg]]
+
+A dark Emacs theme with moderate contrast.
 Provides carefully crafted faces for lots of packages.
 
 Colors and some other aspects of the theme can be configured
