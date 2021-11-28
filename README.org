@@ -1,0 +1,37 @@
+#+TITLE: Hannover Night Theme
+#+AUTHOR: Florian Rommel
+#+LANGUAGE: en
+
+* Introduction
+
+A dark theme with moderate contrast.
+Provides carefully crafted faces for lots of packages.
+
+Colors and some other aspects of the theme can be configured
+(See the hannover-night group).
+
+The main colors are exported as global variables, so they can be used for
+customizations.
+
+
+* Installation
+
+Clone the repository:
+#+BEGIN_SRC shell
+git clone git://github.com/florommel/hannover-night-theme.git
+#+END_SRC
+
+Include the theme in your init file:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "/path/to/the/cloned/theme/")
+(load-theme 'hannover-night t)
+#+END_SRC
+
+
+* Tips
+
+You can customize the colors and other parameters.
+Have a look at the ~hannover-night~ group.
+
+If you use ~powerline~ or similar packages, you might want to set
+~hannover-night-mode-box-width~ to 0 or 1.
