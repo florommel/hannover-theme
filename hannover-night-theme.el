@@ -41,13 +41,13 @@
   "Hannover night theme customizations"
   :group 'faces)
 
-(defcustom hannover-night-mode-box-width 8
+(defcustom hannover-night-mode-line-box-width 8
   "Determines the height of the mode-line.
 Set it to 0 or 1 if you use powerline or similar packages."
   :type 'integer
   :group 'hannover-night-theme)
 
-(defcustom hannover-night-header-box-width 8
+(defcustom hannover-night-header-line-box-width 8
   "Determines the height of the header-line"
   :type 'integer
   :group 'hannover-night-theme)
@@ -195,13 +195,13 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(warning ((t (:foreground ,(color yellow)))))
        `(success ((t (:foreground ,(color green)))))
 
-       `(header-line ((t (:box ,(box hannover-night-header-box-width (color bg-header-line)) :foreground ,(color fg) :background ,(color bg-header-line)))))
-       `(mode-line ((t (:box ,(box hannover-night-mode-box-width (color bg-mode-line)) :foreground ,(color fg-mode-line) :background ,(color bg-mode-line)))))
-       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-box-width (color bg-mode-line-inactice)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactice) :line-height 1.5))))
+       `(header-line ((t (:box ,(box hannover-night-header-line-box-width (color bg-header-line)) :foreground ,(color fg) :background ,(color bg-header-line)))))
+       `(mode-line ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line)) :foreground ,(color fg-mode-line) :background ,(color bg-mode-line)))))
+       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line-inactice)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactice) :line-height 1.5))))
        `(mode-line-buffer-id ((t (:foreground ,(color fg)))))
        `(mode-line-emphasis ((t (:foreground ,(color yellow) :weight bold))))
        `(mode-line-highlight ((t (:foreground ,(color yellow)))))
-       `(mode-line-special ((t (:background ,(color yellow) :foreground ,(color bg) :box ,(box hannover-night-mode-box-width (color yellow))))))
+       `(mode-line-special ((t (:background ,(color yellow) :foreground ,(color bg) :box ,(box hannover-night-mode-line-box-width (color yellow))))))
 
        ;; tab-line
        `(tab-line ((t (:inherit (mode-line-inactive) :box nil :foreground ,(color fg)))))
