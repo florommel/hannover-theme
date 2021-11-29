@@ -33,7 +33,7 @@ Include the theme in your init file:
 * Tips
 
 You can customize the colors and other parameters.
-Have a look at the ~hannover-night~ group.
+Have a look at the ~hannover-night-theme~ group.
 
 If you use ~powerline~ or similar packages, you might want to set
 ~hannover-night-mode-box-width~ to 0 or 1.

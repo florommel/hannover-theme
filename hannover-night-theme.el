@@ -3,7 +3,7 @@
 
 ;; Author: Florian Rommel <mail@florommel.de>
 ;; Maintainer: Florian Rommel <mail@florommel.de>
-;; Url: https://github.com/florommel/emacs-hannover-night-theme
+;; Url: https://github.com/florommel/hannover-night-theme
 ;; Created: 2021-11-28
 ;; Version: 0.1
 ;; Package-Requires: ((emacs "26.1"))
@@ -27,7 +27,7 @@
 ;; Provides carefully crafted faces for lots of packages.
 ;;
 ;; Colors and some other aspects of the theme can be configured
-;; (See the hannover-night group).
+;; (See the hannover-night-theme group).
 ;;
 ;; The main colors are exported as global variables, so they can be used
 ;; for customizations.
