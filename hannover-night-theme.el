@@ -663,6 +663,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(yascroll:thumb-fringe ((t (:background ,(color dim) :foreground ,(color dim)))))
        `(yascroll:thumb-text-area ((t (:background ,(color dim)))))
 
+       `(rmsbolt-current-line-face ((t (:background ,(color dim) :extend t))))
+
        ;; which-func
        `(which-func ((t ())))
 
