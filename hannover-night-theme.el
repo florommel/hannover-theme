@@ -416,6 +416,15 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; popup
        `(popup-tip-face ((t (:inherit company-tooltip :underline nil :weight normal :slant normal :box nil :overline nil :strike-through nil))))
 
+       ;; corfu
+       `(corfu-default ((t (:background ,(mix "black" (color 2-blue) 0.6)))))
+       `(corfu-border ((t (:background ,(color 1-blue)))))
+       `(corfu-annotation ((t (:inherit shadow :slant italic))))
+       `(corfu-bar ((t (:background ,(color blue)))))
+       `(corfu-current ((t (:background ,(mix (color 2-blue) (color fg) 0.05)))))
+       `(corfu-deprecated ((t (:inherit shadow :strike-through t))))
+       `(corfu-echo ((t (:inherit shadow))))
+
        ;; rainbow-delimiters
        `(rainbow-delimiters-base-error-face ((t (:foreground ,(color red)))))
        `(rainbow-delimiters-depth-1-face ((t (:foreground ,(mix (color 1-blue) (color fg) 0.35)))))
