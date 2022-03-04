@@ -44,22 +44,22 @@
 (defcustom hannover-night-mode-line-box-width 8
   "Determines the height of the mode-line.
 Set it to 0 or 1 if you use powerline or similar packages."
-  :type 'integer
+  :type 'natnum
   :group 'hannover-night-theme)
 
 (defcustom hannover-night-header-line-box-width 8
   "Determines the height of the header-line"
-  :type 'integer
+  :type 'natnum
   :group 'hannover-night-theme)
 
 (defcustom hannover-night-tab-line-box-width 8
   "Determines the height of the tab-line"
-  :type 'integer
+  :type 'natnum
   :group 'hannover-night-theme)
 
 (defcustom hannover-night-tab-bar-box-width 8
   "Determines the height of the tab-bar"
-  :type 'integer
+  :type 'natnum
   :group 'hannover-night-theme)
 
 (defun hannover-night-mix (color1 color2 ratio)
