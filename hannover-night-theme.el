@@ -161,6 +161,11 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(secondary-selection ((t (:extend t :background ,(color bg-secondary-selection) :distant-foreground ,(color fg-distant)))))
        `(trailing-whitespace ((t (:background ,(color bg-warning)))))
 
+       `(italic ((t (:slant italic))))
+       `(bold ((t (:weight bold))))
+       `(bold-italic ((t (:weight bold :slant italic))))
+       `(underline ((t (:underline (:color foreground-color :style line)))))
+
        `(font-lock-builtin-face ((t (:foreground ,(color fl-type)))))
        `(font-lock-comment-delimiter-face ((t (:foreground ,(color fl-comment)))))
        `(font-lock-comment-face ((t (:foreground ,(color fl-comment) :slant italic))))
