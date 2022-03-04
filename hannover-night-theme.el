@@ -122,10 +122,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
     (color-def 'cursor                 (color blue)                                        "Cursor color")
     (color-def 'bg-highlight           (shade (color fg) 0.2)                              "Highlight background color")
     (color-def 'bg-mode-line           "#3d4a74"                                           "Modeline background color")
-    (color-def 'bg-mode-line-inactice  (color bg-highlight)                                "Modeline inactive background color")
-    (color-def 'bg-header-line         (mix (color bg-mode-line-inactice) (color bg) 0.4)  "Header line background color")
+    (color-def 'bg-mode-line-inactive  (color bg-highlight)                                "Modeline inactive background color")
+    (color-def 'bg-header-line         (mix (color bg-mode-line-inactive) (color bg) 0.4)  "Header line background color")
     (color-def 'fg-mode-line           (mix (color bg-mode-line) (color fg) 0.6)           "Modeline foreground color")
-    (color-def 'fg-mode-line-inactive  (mix (color bg-mode-line-inactice) (color fg) 0.55) "Modeline inactive foreground color")
+    (color-def 'fg-mode-line-inactive  (mix (color bg-mode-line-inactive) (color fg) 0.55) "Modeline inactive foreground color")
 
     (color-def 'bg-region              "#4c64ad"                                           "Region background color")
     (color-def 'fg-escape              (color yellow)                                      "Escape foreground color")
@@ -202,7 +202,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
 
        `(header-line ((t (:box ,(box hannover-night-header-line-box-width (color bg-header-line)) :foreground ,(color fg) :background ,(color bg-header-line)))))
        `(mode-line ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line)) :foreground ,(color fg-mode-line) :background ,(color bg-mode-line)))))
-       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line-inactice)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactice) :line-height 1.5))))
+       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line-inactive)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactive) :line-height 1.5))))
        `(mode-line-buffer-id ((t (:foreground ,(color fg)))))
        `(mode-line-emphasis ((t (:foreground ,(color yellow) :weight bold))))
        `(mode-line-highlight ((t (:foreground ,(color yellow)))))
@@ -222,14 +222,14 @@ Set it to 0 or 1 if you use powerline or similar packages."
 
        ;; powerline
        `(powerline-active0 ((t (:inherit mode-line :box nil))))
-       `(powerline-active1 ((t (:inherit powerline-active0 :background ,(shade (color bg-mode-line-inactice) 0.6)))))
+       `(powerline-active1 ((t (:inherit powerline-active0 :background ,(shade (color bg-mode-line-inactive) 0.6)))))
        `(powerline-active2 ((t (:inherit powerline-active0))))
        `(powerline-inactive0 ((t (:inherit mode-line-inactive :box nil))))
        `(powerline-inactive1 ((t (:inherit powerline-active1))))
        `(powerline-inactive2 ((t (:inherit powerline-inactive0))))
 
        ;; window-divider
-       `(window-divider ((t (:foreground ,(color bg-mode-line-inactice)))))
+       `(window-divider ((t (:foreground ,(color bg-mode-line-inactive)))))
        `(window-divider-first-pixel ((t (:foreground ,(color bg)))))
        `(window-divider-last-pixel ((t (:foreground ,(color bg)))))
 
@@ -412,9 +412,9 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(company-tooltip-selection ((t (:background ,(mix (color fg-tooltip) (color bg-tooltip) 0.85)))))
 
        ;; company-posframe
-       `(company-posframe-active-backend-name ((t (:background ,(color bg-mode-line-inactice) :foreground ,(color yellow)))))
-       `(company-posframe-inactive-backend-name ((t (:background ,(color bg-mode-line-inactice) :foreground ,(color fg-mode-line-inactive)))))
-       `(company-posframe-metadata ((t (:background ,(color bg-mode-line-inactice) :foreground ,(color fg-mode-line-inactive) :slant italic))))
+       `(company-posframe-active-backend-name ((t (:background ,(color bg-mode-line-inactive) :foreground ,(color yellow)))))
+       `(company-posframe-inactive-backend-name ((t (:background ,(color bg-mode-line-inactive) :foreground ,(color fg-mode-line-inactive)))))
+       `(company-posframe-metadata ((t (:background ,(color bg-mode-line-inactive) :foreground ,(color fg-mode-line-inactive) :slant italic))))
        `(company-posframe-quickhelp ((t (:background ,(color 2-yellow)))))
        `(company-posframe-quickhelp-header ((t (:background ,(color 2-yellow) :foreground ,(color blue)))))
 
