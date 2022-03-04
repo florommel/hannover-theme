@@ -62,6 +62,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
   :type 'natnum
   :group 'hannover-night-theme)
 
+(defcustom hannover-night-org-block-begin-end-height 0.8
+  "Determines the text height of org-mode block begin and end lines"
+  :type 'number
+  :group 'hannover-night-theme)
+
+(defcustom hannover-night-outline-height 1.0
+  "Determines the text height of outlines (including org-mode headers)"
+  :type 'number
+  :group 'hannover-night-theme)
+
 (defun hannover-night-mix (color1 color2 ratio)
   "Mix COLOR1 and COLOR2 depending on RATIO."
   (let ((color1 (color-name-to-rgb color1))
@@ -506,7 +516,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(outline-5 ((t (:inherit outline-6 :foreground ,(mix (color purple) (color fg) 0.3)))))
        `(outline-6 ((t (:inherit outline-7 :foreground ,(mix (color yellow) (color fg) 0.3)))))
        `(outline-7 ((t (:inherit outline-8 :foreground ,(mix (color blue) (color fg) 0.3)))))
-       `(outline-8 ((t (:weight bold :height 1.15 :overline ,(color bg) :foreground ,(mix (color purple) (color fg) 0.3)))))
+       `(outline-8 ((t (:weight bold :height ,hannover-night-outline-height :overline ,(color bg) :foreground ,(mix (color purple) (color fg) 0.3)))))
 
        ;; org
        `(org-agenda-calendar-event ((t nil)))
@@ -528,8 +538,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-agenda-structure ((t (:foreground ,(color blue)))))
        `(org-archived ((t (:foreground ,(color grey)))))
        `(org-block ((t (:background ,(shade (color grey) 0.2) :extend t))))
-       `(org-block-begin-line ((t (:inherit (org-block) :foreground ,(color grey) :slant italic))))
-       `(org-block-end-line ((t (:inherit (org-block) :foreground ,(color grey) :slant italic))))
+       `(org-block-begin-line ((t (:inherit (org-block) :height ,hannover-night-org-block-begin-end-height :foreground ,(color grey) :slant italic))))
+       `(org-block-end-line ((t (:inherit (org-block) :height ,hannover-night-org-block-begin-end-height :foreground ,(color grey) :slant italic))))
        `(org-checkbox ((t (:foreground ,(color fg) :background ,(shade (color grey) 0.3)))))
        `(org-checkbox-statistics-done ((t (:inherit (org-done)))))
        `(org-checkbox-statistics-todo ((t (:inherit (org-todo)))))
@@ -590,10 +600,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-verbatim ((t (:foreground ,(color green)))))
        `(org-verse ((t (:inherit (org-block)))))
        `(org-warning ((t (:inherit (font-lock-warning-face)))))
-       `(org-todo ((t (:inherit (outline-8) :weight normal :foreground ,(color orange) :background ,(mix (color 1-orange) (color 2-orange) 0.7)))))
-       `(org-done ((t (:inherit (outline-8) :weight normal :foreground ,(color green) :background ,(mix (color 1-green) (color 2-green) 0.7)))))
-       `(org-headline-todo ((t (:inherit (outline-8) :foreground ,(color orange)))))
-       `(org-headline-done ((t (:inherit (outline-8) :foreground ,(color green)))))
+       `(org-todo ((t (:weight normal :foreground ,(color orange) :background ,(mix (color 1-orange) (color 2-orange) 0.7)))))
+       `(org-done ((t (:weight normal :foreground ,(color green) :background ,(mix (color 1-green) (color 2-green) 0.7)))))
+       `(org-headline-todo ((t (:foreground ,(color orange)))))
+       `(org-headline-done ((t (:foreground ,(color green)))))
 
        ;; flymake
        `(flymake-error ((((supports :underline (:style wave))) (:underline (:color ,(color red) :style wave))) (t (:inherit (error)))))
