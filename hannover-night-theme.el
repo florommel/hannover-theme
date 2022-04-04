@@ -605,6 +605,25 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-headline-todo ((t (:foreground ,(color orange)))))
        `(org-headline-done ((t (:foreground ,(color green)))))
 
+       ;; markdown
+       `(markdown-blockquote-face ((t (:foreground ,(color purple)))))
+       `(markdown-gfm-checkbox-face ((t (:foreground ,(color fg) :background ,(shade (color grey) 0.3)))))
+       `(markdown-header-face ((t (:inherit outline-1))))
+       `(markdown-header-face-1 ((t (:inherit outline-1))))
+       `(markdown-header-face-2 ((t (:inherit outline-2))))
+       `(markdown-header-face-3 ((t (:inherit outline-3))))
+       `(markdown-header-face-4 ((t (:inherit outline-4))))
+       `(markdown-header-face-5 ((t (:inherit outline-5))))
+       `(markdown-header-face-6 ((t (:inherit outline-6))))
+       `(markdown-header-face-7 ((t (:inherit outline-7))))
+       `(markdown-header-face-8 ((t (:inherit outline-8))))
+       `(markdown-highlighting-face ((t (:background ,(color 1-yellow)))))
+       `(markdown-inline-code-face ((t (:background ,(shade (color grey) 0.4)))))
+       `(markdown-code-face ((t (:background ,(shade (color grey) 0.2) :extend t))))
+       `(markdown-language-keyword-face ((t (:inherit (markdown-markup-face)))))
+       `(markdown-line-break-face ((t (:inherit (markdown-markup-face)))))
+       `(markdown-pre-face ((t (:background ,(shade (color grey) 0.2) :extend t))))
+
        ;; flymake
        `(flymake-error ((((supports :underline (:style wave))) (:underline (:color ,(color red) :style wave))) (t (:inherit (error)))))
        `(flymake-warning ((((supports :underline (:style wave))) (:underline (:color ,(color yellow) :style wave))) (t (:inherit (warning)))))
