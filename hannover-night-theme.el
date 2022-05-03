@@ -659,6 +659,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(goggles-changed ((t (:inherit diff-changed))))
        `(goggles-removed ((t (:inherit diff-removed))))
 
+       ;; tree-sitter
+       `(tree-sitter-hl-face:variable.special ((t (:inherit font-lock-variable-name-face))))
+       `(tree-sitter-hl-face:function.call ((t (:inherit (font-lock-function-name-face)))))
+       `(tree-sitter-hl-face:method.call ((t (:inherit (font-lock-function-name-face)))))
+       `(tree-sitter-hl-face:property ((t (:slant italic))))
+       `(tree-sitter-hl-face:punctuation ((t (:foreground ,(mix (color grey) (color fg) 0.25)))))
+       `(tree-sitter-hl-face:label ((t (:inherit (font-lock-constant-face)))))
+       `(tree-sitter-hl-face:string.special ((t (:inherit (tree-sitter-hl-face:string)))))
+       `(tree-sitter-hl-face:embedded ((t ())))
+
        ;; eglot
        `(eglot-highlight-symbol-face ((t (:underline (:color ,(color yellow) :style line)))))
 
