@@ -619,11 +619,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(markdown-header-face-7 ((t (:inherit outline-7))))
        `(markdown-header-face-8 ((t (:inherit outline-8))))
        `(markdown-highlighting-face ((t (:background ,(color 1-yellow)))))
-       `(markdown-inline-code-face ((t (:background ,(shade (color grey) 0.4)))))
-       `(markdown-code-face ((t (:background ,(shade (color grey) 0.2) :extend t))))
        `(markdown-language-keyword-face ((t (:inherit (markdown-markup-face)))))
        `(markdown-line-break-face ((t (:inherit (markdown-markup-face)))))
-       `(markdown-pre-face ((t (:background ,(shade (color grey) 0.2) :extend t))))
 
        ;; flymake
        `(flymake-error ((((supports :underline (:style wave))) (:underline (:color ,(color red) :style wave))) (t (:inherit (error)))))
