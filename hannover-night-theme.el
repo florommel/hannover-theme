@@ -641,6 +641,11 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; ledger
        `(ledger-font-xact-highlight-face ((t (:inherit (ledger-occur-xact-face)))))
        `(ledger-occur-xact-face ((t (:background ,(color 2-blue)))))
+       `(ledger-font-payee-name-face ((t (:foreground ,(color yellow)))))
+       `(ledger-font-payee-uncleared-face ((t (:foreground ,(color orange)))))
+       `(ledger-font-payee-cleared-face ((t (:foreground ,(color green)))))
+       `(ledger-font-pending-face ((t (:foreground ,(color red)))))
+       `(ledger-font-posting-account-face ((t ())))
 
        ;; neotree
        `(neo-banner-face ((t (:foreground ,(color blue) :weight bold))))
