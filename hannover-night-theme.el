@@ -99,12 +99,12 @@ Set it to 0 or 1 if you use powerline or similar packages."
     (color-def 'fg                     "#d8d8d8"                                           "Main foreground color")
     (color-def 'bg                     "#292929"                                           "Main background color")
     (color-def 'blue                   "#72ace5"                                           "Blue foreground color")
-    (color-def 'red                    "#ea5151"                                           "Red foreground color")
+    (color-def 'red                    "#eb6060"                                           "Red foreground color")
     (color-def 'orange                 "#e59e8d"                                           "Orange foreground color")
-    (color-def 'green                  "#9fd865"                                           "Green foreground color")
-    (color-def 'yellow                 "#edc678"                                           "Yellow foreground color")
-    (color-def 'purple                 "#af95e5"                                           "Purple foreground color")
-    (color-def 'cyan                   "#4be7e7"                                           "Cyan foreground color")
+    (color-def 'green                  "#9eca72"                                           "Green foreground color")
+    (color-def 'yellow                 "#e7cc99"                                           "Yellow foreground color")
+    (color-def 'purple                 "#b49ce2"                                           "Purple foreground color")
+    (color-def 'cyan                   "#8ff0f0"                                           "Cyan foreground color")
 
     (color-def '1-blue                 (shade (color blue)   0.6)                          "Dimmed blue color")
     (color-def '1-red                  (shade (color red)    0.6)                          "Dimmed red color")
@@ -125,9 +125,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
     (color-def 'grey                   (shade "#808080" 0.8)                               "Grey foreground color")
     (color-def 'dim                    (shade "#808080" 0.4)                               "Dim foreground color")
     (color-def 'fg-distant             (mix (color grey) (color fg) 0.5)                   "Distant foreground color")
+    (color-def 'pale-blue              (mix (color blue) (color fg) 0.55)                  "Pale blue foreground color")
 
     (color-def 'fg-tooltip             "black"                                             "Tooltip foreground color")
-    (color-def 'bg-tooltip             (mix (color yellow) "white" 0.4)                    "Tooltip background color")
+    (color-def 'bg-tooltip             (color yellow)                                      "Tooltip background color")
 
     (color-def 'cursor                 (color blue)                                        "Cursor color")
     (color-def 'bg-highlight           (shade (color fg) 0.2)                              "Highlight background color")
@@ -144,12 +145,12 @@ Set it to 0 or 1 if you use powerline or similar packages."
     (color-def 'fl-comment             (color grey)                                        "Font-lock comment color")
     (color-def 'fl-doc                 (mix (color grey) (color 1-green) 0.7)              "Font-lock documentation color")
     (color-def 'fl-keyword             (color blue)                                        "Font-lock keyword color")
-    (color-def 'fl-preprocessor        (color yellow)                                      "Font-lock preprocessor color")
+    (color-def 'fl-preprocessor        (color blue)                                        "Font-lock preprocessor color")
     (color-def 'fl-string              (color green)                                       "Font-lock string color")
     (color-def 'fl-type                (color purple)                                      "Font-lock type color")
-    (color-def 'fl-function            (color orange)                                      "Font-lock function color")
-    (color-def 'fl-variable            (color orange)                                      "Font-lock variable color")
-    (color-def 'fl-const               (color orange)                                      "Font-lock constant color")
+    (color-def 'fl-function            (color orange)                                      "Font-lock variable color")
+    (color-def 'fl-variable            (color yellow)                                      "Font-lock function color")
+    (color-def 'fl-const               (color pale-blue)                                   "Font-lock constant color")
     (color-def 'fl-neg                 (color orange)                                      "Font-lock negation color")
     (color-def 'fl-warning             (color red)                                         "Font-lock warning color")
     (color-def 'bg-warning             (color yellow)                                      "Font-lock warning color"))
@@ -311,7 +312,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(diff-index ((t (:inherit diff-file-header))))
 
        ;; diff-hl
-       `(diff-hl-change ((t (:foreground ,(mix (color 1-orange) (color 1-yellow) 0.5)))))
+       `(diff-hl-change ((t (:foreground ,(mix (color 1-orange) (color 2-yellow) 0.3)))))
        `(diff-hl-delete ((t (:foreground ,(color 1-red)))))
        `(diff-hl-insert ((t (:foreground ,(color 1-green)))))
        `(diff-hl-dired-change ((t (:inherit diff-hl-change :foreground ,(color bg)))))
@@ -322,7 +323,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; git-gutter
        `(git-gutter:added ((t (:foreground ,(color 1-green)))))
        `(git-gutter:deleted ((t (:foreground ,(color 1-red)))))
-       `(git-gutter:modified ((t (:foreground ,(mix (color 1-orange) (color 1-yellow) 0.5)))))
+       `(git-gutter:modified ((t (:foreground ,(mix (color 1-orange) (color 2-yellow) 0.3)))))
        `(git-gutter:separator ((t (:foreground ,(color grey)))))
        `(git-gutter:unchanged ((t (:foreground ,(color grey)))))
 
@@ -453,7 +454,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(rainbow-delimiters-depth-9-face ((t (:foreground ,(mix (color 1-green) (color fg) 0.35)))))
 
        ;; highlight
-       `(hlt-property-highlight ((t (:background ,(mix (color 1-red) (color 2-red) 0.4)))))
+       `(hlt-property-highlight ((t (:background ,(mix (color 1-red) (color 2-red) 0.85)))))
        `(hlt-regexp-level-1 ((t (:background ,(color blue) :foreground ,(color bg)))))
        `(hlt-regexp-level-2 ((t (:background ,(color orange) :foreground ,(color bg)))))
        `(hlt-regexp-level-3 ((t (:background ,(color green) :foreground ,(color bg)))))
@@ -660,8 +661,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(eglot-highlight-symbol-face ((t (:underline (:color ,(color yellow) :style line)))))
 
        ;; lsp
-       `(lsp-face-highlight-textual ((t (:underline (:color ,(color cyan) :style line)))))
-       `(lsp-face-highlight-read ((t (:underline (:color ,(color yellow) :style line)))))
+       `(lsp-face-highlight-textual ((t (:underline (:color ,(color yellow) :style line)))))
+       `(lsp-face-highlight-read ((t (:underline (:color ,(color cyan) :style line)))))
        `(lsp-face-highlight-write ((t (:underline (:color ,(color red) :style line)))))
 
        `(lsp-headerline-breadcrumb-path-error-face ((t (:inherit (lsp-headerline-breadcrumb-path-face) :underline (:color ,(color red) :style wave)))))
