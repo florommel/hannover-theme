@@ -201,7 +201,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(isearch ((t (:inverse-video t))))
        `(isearch-fail ((t (:inverse-video t :inherit (font-lock-warning-face)))))
        `(lazy-highlight ((t (:inverse-video t :inherit (font-lock-keyword-face)))))
-       `(match ((t (:inverse-video t :background ,(color bg) :foreground ,(shade (color yellow) 0.75)))))
+       `(match ((t (:inverse-video t :background ,(color bg) :foreground ,(shade (color yellow) 0.7)))))
        `(next-error ((t (:inherit (region)))))
        `(query-replace ((t (:inverse-video t :background ,(color bg) :foreground ,(shade (color red) 0.75)))))
        `(hl-line ((t (:background ,(shade (color bg-highlight) 0.35)))))
