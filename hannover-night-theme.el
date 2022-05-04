@@ -488,6 +488,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(bm-persistent-face ((t (:background ,(mix (color 1-cyan) (color 2-cyan) 0.6) :extend t))))
        `(bm-fringe-persistent-face ((t (:inherit (bm-persistent-face) :foreground ,(color cyan)))))
 
+       ;; sh
+       `(sh-quoted-exec ((t (:foreground ,(color red)))))
+       `(sh-heredoc ((t (:foreground ,(color cyan)))))
+
        ;; auctex
        `(font-latex-bold-face                 ((t (:weight bold))))
        `(font-latex-doctex-documentation-face ((t (:foreground ,(color blue)))))
