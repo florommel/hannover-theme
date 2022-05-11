@@ -386,6 +386,13 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(git-gutter:separator ((t (:foreground ,(color grey)))))
        `(git-gutter:unchanged ((t (:foreground ,(color grey)))))
 
+       ;; wgrep
+       `(wgrep-delete-face ((t (:background ,(color 1-red)))))
+       `(wgrep-done-face ((t (:foreground ,(color blue) :distant-foreground ,(color 2-blue)))))
+       `(wgrep-face ((t (:background ,(mix (color 1-yellow) (color 2-yellow) 0.6) :foreground ,(color fg)))))
+       `(wgrep-file-face ((t (:inherit (wgrep-face)))))
+       `(wgrep-reject-face ((t (:foreground ,(color red) :distant-foreground ,(color 2-red) :weight bold))))
+
        ;; avy
        `(avy-lead-face ((t (:background ,(mix (color cyan) (color bg) 0.6) :foreground ,(color fg)))))
        `(avy-lead-face-0 ((t (:background ,(mix (color grey) (color bg) 0.5) :foreground ,(color fg)))))
