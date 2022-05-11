@@ -430,17 +430,30 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(ivy-background-match-face-3 ((t (:inherit (swiper-match-face-3)))))
        `(ivy-background-match-face-4 ((t (:inherit (swiper-match-face-4)))))
        `(swiper-line-face ((t (:background ,(color bg-highlight) :extend t))))
-       `(swiper-match-face-1 ((t (:inherit (ivy-minibuffer-match-face-1) :background ,(color bg-mode-line) :distant-foreground ,(color fg-distant) :underline nil))))
-       `(swiper-match-face-2 ((t (:inherit (ivy-minibuffer-match-face-2) :background ,(color bg-mode-line)))))
-       `(swiper-match-face-3 ((t (:inherit (ivy-minibuffer-match-face-3) :background ,(color bg-mode-line)))))
-       `(swiper-match-face-4 ((t (:inherit (ivy-minibuffer-match-face-4) :background ,(color bg-mode-line)))))
+       `(swiper-match-face-1 ((t (:inherit (ivy-minibuffer-match-face-1) :background ,(color bg-mode-line) :distant-foreground ,(color fg-distant) :box (:color ,(color grey) :line-width (-1 . -1))))))
+       `(swiper-match-face-2 ((t (:inherit (ivy-minibuffer-match-face-2) :background ,(color bg-mode-line) :box (:color ,(color grey) :line-width (-1 . -1))))))
+       `(swiper-match-face-3 ((t (:inherit (ivy-minibuffer-match-face-3) :background ,(color bg-mode-line) :box (:color ,(color grey) :line-width (-1 . -1))))))
+       `(swiper-match-face-4 ((t (:inherit (ivy-minibuffer-match-face-4) :background ,(color bg-mode-line) :box (:color ,(color grey) :line-width (-1 . -1))))))
+       `(swiper-background-match-face-1 ((t (:inherit (swiper-match-face-1) :background ,(color bg-highlight)))))
+       `(swiper-background-match-face-2 ((t (:inherit (swiper-match-face-2) :background ,(color bg-highlight)))))
+       `(swiper-background-match-face-3 ((t (:inherit (swiper-match-face-3) :background ,(color bg-highlight)))))
+       `(swiper-background-match-face-4 ((t (:inherit (swiper-match-face-4) :background ,(color bg-highlight)))))
 
-       ;; consult
+       ;; selectrum
        `(selectrum-current-candidate ((t (:background ,(color bg-highlight) :distant-foreground ,(color fg-distant)))))
        `(selectrum-primary-highlight ((t (:weight bold :foreground ,(color cyan) :underline (:color ,(color cyan) :style line)))))
        `(selectrum-prescient-current-candidate ((t (:background ,(color bg-highlight)))))
        `(selectrum-mouse-highlight ((t (:background ,(color bg-region) :foreground ,(color fg)))))
        `(selectrum-prescient-primary-highlight ((t (:weight bold :foreground ,(color cyan) :underline (:color ,(color cyan) :style line)))))
+
+       ;; vertico
+       `(vertico-current ((t (:background ,(color bg-highlight) :distant-foreground ,(color fg-distant)))))
+
+       ;; orderless
+       `(orderless-match-face-0 ((t (:weight bold :foreground ,(color cyan) :underline (:color ,(color cyan) :style line)))))
+       `(orderless-match-face-1 ((t (:weight bold :foreground ,(color yellow) :underline (:color ,(color yellow) :style line)))))
+       `(orderless-match-face-2 ((t (:weight bold :foreground ,(color orange) :underline (:color ,(color orange) :style line)))))
+       `(orderless-match-face-3 ((t (:weight bold :foreground ,(color blue) :underline (:color ,(color blue) :style line)))))
 
        ;; paren showing
        `(show-paren-match ((t (:background ,(color 1-purple) :foreground ,(color fg)))))
