@@ -254,6 +254,9 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(term-color-red ((t (:background ,(color red) :foreground ,(color red)))))
        `(term-color-yellow ((t (:background ,(color yellow) :foreground ,(color yellow)))))
 
+       ;; multiple cursors
+       `(mc/cursor-face ((t (:inverse-video t :background ,(color bg) :foreground "white" :distant-foreground ,(color bg)))))
+
        ;; dired
        `(dired-directory  ((t (:foreground ,(color blue) :weight normal))))
        `(dired-flagged  ((t (:background ,(color 1-red)))))
