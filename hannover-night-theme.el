@@ -715,7 +715,9 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(flyspell-incorrect ((((supports :underline (:style wave))) (:underline (:color ,(color red) :style wave))) (t (:inherit (error)))))
 
        ;; Flycheck
-       ;; TODO
+       `(flycheck-error ((((supports :underline (:style wave))) (:underline (:color ,(color red) :style wave))) (t (:inherit (error)))))
+       `(flycheck-warning ((((supports :underline (:style wave))) (:underline (:color ,(color yellow) :style wave))) (t (:inherit (warning)))))
+       `(flycheck-info ((((supports :underline (:style wave))) (:underline (:color ,(color green) :style wave))) (t (:inherit (success)))))
 
        ;; hexl
        `(hexl-address-region ((t (:foreground ,(shade (color blue) 0.8)))))
