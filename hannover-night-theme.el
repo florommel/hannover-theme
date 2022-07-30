@@ -213,7 +213,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
 
        `(header-line ((t (:box ,(box hannover-night-header-line-box-width (color bg-header-line)) :foreground ,(color fg) :background ,(color bg-header-line)))))
        `(mode-line ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line)) :foreground ,(color fg-mode-line) :background ,(color bg-mode-line)))))
-       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line-inactive)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactive) :line-height 1.5))))
+       `(mode-line-inactive ((t (:box ,(box hannover-night-mode-line-box-width (color bg-mode-line-inactive)) :foreground ,(color fg-mode-line-inactive) :background ,(color bg-mode-line-inactive)))))
        `(mode-line-buffer-id ((t (:foreground ,(color fg)))))
        `(mode-line-emphasis ((t (:foreground ,(color yellow) :weight bold))))
        `(mode-line-highlight ((t (:foreground ,(color yellow)))))
@@ -548,15 +548,15 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(highlight-changes-delete ((t (:underline (:color ,(color red) :style line)))))
 
        ;; symbol-overlay
-       `(symbol-overlay-default-face ((t (:inherit (hlt-property-highlight)))))
-       `(symbol-overlay-face-1 ((t (:inherit (hlt-regexp-level-1)))))
-       `(symbol-overlay-face-2 ((t (:inherit (hlt-regexp-level-2)))))
-       `(symbol-overlay-face-3 ((t (:inherit (hlt-regexp-level-3)))))
-       `(symbol-overlay-face-4 ((t (:inherit (hlt-regexp-level-4)))))
-       `(symbol-overlay-face-5 ((t (:inherit (hlt-regexp-level-5)))))
-       `(symbol-overlay-face-6 ((t (:inherit (hlt-regexp-level-6)))))
-       `(symbol-overlay-face-7 ((t (:inherit (hlt-regexp-level-7)))))
-       `(symbol-overlay-face-8 ((t (:inherit (hlt-regexp-level-8)))))
+       `(symbol-overlay-default-face ((t (:background ,(mix (color 1-red) (color 2-red) 0.85)))))
+       `(symbol-overlay-face-1 ((t (:background ,(color blue) :foreground ,(color bg)))))
+       `(symbol-overlay-face-2 ((t (:background ,(color orange) :foreground ,(color bg)))))
+       `(symbol-overlay-face-3 ((t (:background ,(color green) :foreground ,(color bg)))))
+       `(symbol-overlay-face-4 ((t (:background ,(color yellow) :foreground ,(color bg)))))
+       `(symbol-overlay-face-5 ((t (:background ,(color purple) :foreground ,(color bg)))))
+       `(symbol-overlay-face-6 ((t (:background ,(color cyan) :foreground ,(color bg)))))
+       `(symbol-overlay-face-7 ((t (:background ,(color red) :foreground ,(color bg)))))
+       `(symbol-overlay-face-8 ((t (:background ,(mix (color grey) (color fg) 0.5) :foreground ,(color bg)))))
 
        ;; bookmark
        `(bookmark-face ((t (:background ,(mix (color 1-yellow) (color 2-yellow) 0.85) :extend t))))
