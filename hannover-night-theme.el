@@ -723,6 +723,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(hexl-address-region ((t (:foreground ,(shade (color blue) 0.8)))))
        `(hexl-ascii-region ((t (:foreground ,(shade (color green) 0.8)))))
 
+       ;; imenu-list
+       `(imenu-list-entry-face-0 ((t (:inherit (imenu-list-entry-face)))))
+       `(imenu-list-entry-face-1 ((t (:inherit (imenu-list-entry-face)))))
+       `(imenu-list-entry-face-2 ((t (:inherit (imenu-list-entry-face)))))
+       `(imenu-list-entry-face-3 ((t (:inherit (imenu-list-entry-face)))))
+       `(imenu-list-entry-subalist-face-0 ((t (:inherit (imenu-list-entry-face-0)))))
+       `(imenu-list-entry-subalist-face-1 ((t (:inherit (imenu-list-entry-face-1)))))
+       `(imenu-list-entry-subalist-face-2 ((t (:inherit (imenu-list-entry-face-2)))))
+       `(imenu-list-entry-subalist-face-3 ((t (:inherit (imenu-list-entry-face-3)))))
+
        ;; ledger
        `(ledger-font-xact-highlight-face ((t (:inherit (ledger-occur-xact-face)))))
        `(ledger-occur-xact-face ((t (:background ,(color 2-blue)))))
