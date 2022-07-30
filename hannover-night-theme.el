@@ -220,16 +220,24 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(mode-line-special ((t (:background ,(color yellow) :foreground ,(color bg) :box ,(box hannover-night-mode-line-box-width (color yellow))))))
 
        ;; tab-line
-       `(tab-line ((t (:inherit (mode-line-inactive) :box nil :foreground ,(color fg)))))
-       `(tab-line-tab ((t (:inherit (tab-line) :box ,(box hannover-night-tab-line-box-width (color 1-blue)) :background ,(color 1-blue)))))
-       `(tab-line-tab-highlight ((t (:inherit (tab-line-tab) :box ,(box hannover-night-tab-line-box-width (color 1-purple)) :background ,(color 1-purple)))))
-       `(tab-line-tab-current ((t (:inherit (tab-line-tab) :box ,(box hannover-night-tab-line-box-width (color bg)) :background ,(color bg)))))
-       `(tab-line-tab-inactive ((t (:inherit (tab-line-tab) :box ,(box hannover-night-tab-line-box-width (color grey)) :background ,(color grey)))))
+       `(tab-line ((t (:inherit (mode-line-inactive) :box nil :foreground ,(color fg) :overline ,(color grey)))))
+       `(tab-line-close-highlight ((t (:foreground ,(color red)))))
+       `(tab-line-highlight ((t (:foreground ,(color pale-blue)))))
+       `(tab-line-tab ((t (:inherit (tab-line) :box (:line-width (,(round (* 1.5 hannover-night-tab-line-box-width)) . ,hannover-night-tab-line-box-width) :color ,(color bg)) :background ,(color bg) :overline ,(color grey)))))
+       `(tab-line-tab-current ((t (:inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-night-tab-line-box-width)) . ,hannover-night-tab-line-box-width) :color ,(color bg)) :background ,(color bg) :overline ,(color 1-blue)))))
+       `(tab-line-tab-group ((t (:inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-night-tab-line-box-width)) . ,hannover-night-tab-line-box-width) :color ,(color 2-purple)) :background ,(color 2-purple) :overline ,(color 1-purple)))))
+       `(tab-line-tab-inactive ((t (:inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-night-tab-line-box-width)) . ,hannover-night-tab-line-box-width) :color ,(color bg-mode-line-inactive)) :background ,(color bg-mode-line-inactive)  :overline ,(color grey)))))
+       `(tab-line-tab-inactive-alternate ((t (:inherit (tab-line-tab-inactive)))))
+       `(tab-line-tab-modified ((t (:foreground ,(color orange)))))
+       `(tab-line-tab-special ((t (:slant italic))))
 
        ;; tab-bar
        `(tab-bar ((t (:inherit (mode-line-inactive) :box nil :foreground ,(color fg)))))
-       `(tab-bar-tab ((t (:inherit (tab-line) :box ,(box hannover-night-tab-bar-box-width (color 1-blue)) :background ,(color 1-blue)))))
-       `(tab-bar-tab-inactive ((t (:inherit (tab-line-tab) :box ,(box hannover-night-tab-bar-box-width (color grey)) :background ,(color grey)))))
+       `(tab-bar-tab ((t (:inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-night-tab-bar-box-width)) . ,hannover-night-tab-bar-box-width) :color ,(color bg)) :background ,(color bg) :overline ,(color 1-blue)))))
+       `(tab-bar-tab-group-current ((t (:inherit (tab-bar-tab) :weight bold))))
+       `(tab-bar-tab-inactive ((t (:inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-night-tab-bar-box-width)) . ,hannover-night-tab-bar-box-width) :color ,(color bg-mode-line-inactive)) :background ,(color bg-mode-line-inactive)))))
+       `(tab-bar-tab-group-inactive ((t (:inherit (tab-bar-tab-inactive) :foreground ,(color grey)))))
+       `(tab-bar-tab-ungrouped ((t (:inherit (tab-bar-tab-inactive) :foreground ,(color grey)))))
 
        ;; powerline
        `(powerline-active0 ((t (:inherit mode-line :box nil))))
