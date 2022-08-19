@@ -781,7 +781,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(tree-sitter-hl-face:embedded ((t ())))
 
        ;; eglot
-       `(eglot-highlight-symbol-face ((t (:underline (:color ,(color yellow) :style line)))))
+       `(eglot-highlight-symbol-face ((t (:underline (:color ,(color cyan) :style line)))))
 
        ;; lsp
        `(lsp-face-highlight-textual ((t (:underline (:color ,(color yellow) :style line)))))
