@@ -2,6 +2,10 @@
 #+AUTHOR: Florian Rommel
 #+LANGUAGE: en
 
+[[./images/c.svg]]
+
+[[./images/c-lsp-corfu.svg]]
+
 [[./images/lisp.svg]]
 
 [[./images/org.svg]]
@@ -37,3 +41,15 @@ Have a look at the ~hannover-night-theme~ group.
 
 If you use ~powerline~ or similar packages, you might want to set
 ~hannover-night-mode-box-width~ to 0 or 1.
+
+
+* Supported Packages
+
+tab-line, tab-bar, powerline, window-divider, term, multiple cursors,
+dired, diredfl, magit, diff, diff-hl, git-gutter, wgrep, avy, anzu,
+ivy/swiper, selectrum, vertico, orderless, paren showing, compilation,
+display-line-numbers, company, company-posframe, popup, corfu,
+rainbow-delimiters, highlight, highlight-changes, symbol-overlay,
+bookmark, bm, sh, auctex, outline, org, hyperbole, devdocs, markdown,
+flymake, Flyspell, Flycheck, hexl, imenu-list, ledger, neotree,
+goggles, tree-sitter, eglot, lsp, treemacs, yascroll, which-func
