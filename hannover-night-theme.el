@@ -697,6 +697,14 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-headline-todo ((t (:foreground ,(color orange)))))
        `(org-headline-done ((t (:foreground ,(color green)))))
 
+       ;; hyperbole
+       `(hbut-face ((t (:foreground ,(color orange)))))
+       `(hbut-flash ((t (:background ,(color 1-orange)))))
+       `(hbut-item-face ((t (:background ,(color 2-orange) :foreground ,(color orange)))))
+
+       ;; devdocs
+       `(devdocs-code-block ((t (:background ,(shade (color grey) 0.2) :extend t))))
+
        ;; markdown
        `(markdown-blockquote-face ((t (:foreground ,(color purple)))))
        `(markdown-gfm-checkbox-face ((t (:foreground ,(color fg) :background ,(shade (color grey) 0.3)))))
