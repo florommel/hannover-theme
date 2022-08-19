@@ -636,7 +636,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-checkbox-statistics-done ((t (:inherit (org-done)))))
        `(org-checkbox-statistics-todo ((t (:inherit (org-todo)))))
        `(org-clock-overlay ((t (:foreground ,(color bg) :background ,(color blue)))))
-       `(org-code ((t (:background ,(shade (color grey) 0.4)))))
+       `(org-code ((t (:background ,(shade (color grey) 0.4) :extend t))))
        `(org-column ((t (:background ,(shade (color grey) 0.65)))))
        `(org-column-title ((t (:inherit (org-column) :weight bold :underline t))))
        `(org-date ((t (:underline t :foreground ,(color cyan)))))
