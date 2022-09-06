@@ -171,6 +171,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(shadow ((t (:foreground ,(color fg-shadow)))))
        `(secondary-selection ((t (:extend t :background ,(color bg-secondary-selection) :distant-foreground ,(color fg-distant)))))
        `(trailing-whitespace ((t (:background ,(color bg-warning)))))
+       `(scroll-bar ((t :foreground ,(color 1-blue) :background ,(color bg))))
 
        `(italic ((t (:slant italic))))
        `(bold ((t (:weight bold))))
