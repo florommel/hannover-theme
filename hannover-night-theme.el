@@ -265,6 +265,20 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(term-color-red ((t (:background ,(color red) :foreground ,(color red)))))
        `(term-color-yellow ((t (:background ,(color yellow) :foreground ,(color yellow)))))
 
+       ;; eshell
+       `(eshell-prompt ((t (:foreground ,(color blue) :bold t))))
+       `(eshell-ls-archive ((t (:foreground ,(color yellow)))))
+       `(eshell-ls-backup ((t (:foreground ,(color purple)))))
+       `(eshell-ls-clutter ((t (:foreground ,(color grey)))))
+       `(eshell-ls-directory ((t (:foreground ,(color blue)))))
+       `(eshell-ls-executable ((t (:foreground ,(color cyan)))))
+       `(eshell-ls-missing ((t (:foreground ,(color red)))))
+       `(eshell-ls-product ((t (:foreground ,(color grey)))))
+       `(eshell-ls-readonly ((t (:foreground ,(color purple)))))
+       `(eshell-ls-special ((t (:foreground ,(color orange)))))
+       `(eshell-ls-symlink ((t (:foreground ,(color pale-blue)))))
+       `(eshell-ls-unreadable ((t (:foreground ,(color grey)))))
+
        ;; multiple cursors
        `(mc/cursor-face ((t (:inverse-video t :background ,(color bg) :foreground "white" :distant-foreground ,(color bg)))))
 
