@@ -1,4 +1,4 @@
-;;; hannover-night-theme.el --- Dark and light themes with moderate contrast
+;;; hannover-day-theme.el --- Dark and light themes with moderate contrast
 ;; Copyright (C) 2021-2022, Florian Rommel
 
 ;; Author: Florian Rommel <mail@florommel.de>
@@ -23,19 +23,19 @@
 
 ;;; Commentary:
 
-;; A dark theme with moderate contrast.
+;; A light theme with moderate contrast.
 
 ;;; Code:
 
-(deftheme hannover-night
+(deftheme hannover-day
   "A light theme with moderate contrast.")
 
 (require 'hannover-theme)
 
 (apply 'custom-theme-set-faces
-       'hannover-night
-       (hannover-theme-faces 'dark))
+       'hannover-day
+       (hannover-theme-faces 'light))
 
-(provide-theme 'hannover-night)
+(provide-theme 'hannover-day)
 
-;;; hannover-night-theme.el ends here
+;;; hannover-day-theme.el ends here
