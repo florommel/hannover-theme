@@ -515,7 +515,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(diff-index ((h :inherit diff-file-header)))
 
        ;; diff-hl
-       `(diff-hl-change ((h :foreground ,(mix .blue .1-blue 0.5))))
+       `(diff-hl-change ((h :foreground ,.1-blue)))
        `(diff-hl-delete ((h :foreground ,.1-red)))
        `(diff-hl-insert ((h :foreground ,.1-green)))
        `(diff-hl-dired-change ((h :inherit diff-hl-change :foreground ,.bg)))
@@ -526,7 +526,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; git-gutter
        `(git-gutter:added ((h :foreground ,.1-green)))
        `(git-gutter:deleted ((h :foreground ,.1-red)))
-       `(git-gutter:modified ((h :foreground ,(mix .blue .1-blue 0.5))))
+       `(git-gutter:modified ((h :foreground ,.1-blue)))
        `(git-gutter:separator ((h :foreground ,.grey)))
        `(git-gutter:unchanged ((h :foreground ,.grey)))
 
