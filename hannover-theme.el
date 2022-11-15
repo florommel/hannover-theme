@@ -439,6 +439,9 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(diredfl-write-priv ((h :foreground ,.orange)))
        `(diredfl-deletion-file-name ((h :inherit (diredfl-flag-mark-line))))
 
+       ;; dired-filter
+       `(dired-filter-group-header ((h :inherit (header-line) :box (:line-width 1 :color ,.bg :style released-button))))
+
        ;; magit
        `(magit-bisect-bad ((h :foreground ,.red)))
        `(magit-bisect-good ((h :foreground ,.green)))
