@@ -372,7 +372,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(window-divider-last-pixel ((h :foreground ,.bg)))
 
        ;; term
-       `(term-color-black ((h :background "black" :foreground "black")))
+       `(term-color-black ((h :background ,.dim :foreground ,.dim)))
        `(term-color-white ((h :background "white" :foreground "white")))
        `(term-color-blue ((h :background ,.blue :foreground ,.blue)))
        `(term-color-cyan ((h :background ,.cyan :foreground ,.cyan)))
