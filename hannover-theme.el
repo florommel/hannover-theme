@@ -887,6 +887,20 @@ Set it to 0 or 1 if you use powerline or similar packages."
                            (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .green) :style wave)))
                            (t :inherit (success))))
 
+       ;; writegood
+       `(writegood-duplicates-face
+         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .orange) :style wave)))
+          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .orange) :style wave)))
+          (t :inherit (success))))
+       `(writegood-passive-voice-face
+         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .blue) :style wave)))
+          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .blue) :style wave)))
+          (t :inherit (success))))
+       `(writegood-weasels-face
+         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .purple) :style wave)))
+          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .purple) :style wave)))
+          (t :inherit (success))))
+
        ;; hexl
        `(hexl-address-region ((h :foreground ,(mix .bg .blue 0.8))))
        `(hexl-ascii-region ((h :foreground ,(mix .bg .green 0.8))))
