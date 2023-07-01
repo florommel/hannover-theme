@@ -107,27 +107,38 @@ Set it to 0 or 1 if you use powerline or similar packages."
                 (mix1 (cdr c1) (cdr c2) ratio))
         (mix1 c1 c2 ratio)))))
 
-(defmacro hannover-alist-let* (&rest form)
+(defmacro hannover-alist-let* (&optional overrides &rest form)
   ""
   (list
    'let*
    (mapcar
-    (lambda (def) (list (car def) (cadr def)))
+    (lambda (def) (list (car def)
+                        (list 'or
+                              (list 'cadr
+                                    (list 'assq
+                                          (list 'quote (car def)) overrides))
+                              (cadr def))))
     form)
    ;; body
    (cons 'list
          (mapcar
-          (lambda (def) (list 'cons (list 'quote (car def)) (cadr def)))
+          (lambda (def) (list 'cons
+                              (list 'quote (car def))
+                              (list 'or
+                                    (list 'cadr
+                                          (list 'assq
+                                                (list 'quote (car def)) overrides))
+                                    (cadr def))))
           form))))
 
-(defvar hannover-colors
+(defun hannover-default-colors (&optional overrides)
   (cl-flet ((mix #'hannover-mix)
             (dark #'hannover-dark)
             (light #'hannover-light)
             (flip #'hannover-flip))
-    (hannover-alist-let*
+    (hannover-alist-let* overrides
      (fg                     '("#222222" . "#d8d8d8"))
-     (bg                     '("#ffffff" . "#292929"))
+     (bg                     '("#ffffff" . "#232323"))
      (blue                   '("#0059b3" . "#72ace5"))
      (red                    '("#99002e" . "#ee7777"))
      (orange                 '("#993800" . "#e59e8d"))
@@ -168,8 +179,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
      (cursor                 blue)
      (bg-highlight           (mix bg fg 0.2))
      (bg-mode-line           '("#c0d5f2" . "#3d4a74"))
-     (bg-mode-line-inactive  bg-highlight)
-     (bg-header-line         (mix bg-mode-line-inactive bg 0.4))
+     (bg-mode-line-inactive  (mix bg-highlight bg 0.2))
+     (bg-header-line         (mix bg-mode-line-inactive bg 0.3))
      (fg-mode-line           (mix bg-mode-line fg 0.6))
      (fg-mode-line-inactive  (mix bg-mode-line-inactive fg 0.55))
 
@@ -190,6 +201,14 @@ Set it to 0 or 1 if you use powerline or similar packages."
      (fl-warning             red)
      (bg-warning             yellow))))
 
+(defun hannover-set-colors (overrides)
+  (setq hannover-colors (hannover-default-colors overrides)))
+
+(defun hannover-reset-colors ()
+  (setq hannover-colors (hannover-default-colors)))
+
+(defvar hannover-colors (hannover-default-colors))
+
 (defun hannover-face (default face)
   "Build a face definition with hannover-night color." ;; TODO descibe h- extensions
   (when-let (h-branch (assq 'h (cadr face)))
@@ -208,12 +227,13 @@ Set it to 0 or 1 if you use powerline or similar packages."
                         (progn (setf (plist-get (cdr light-branch) key) color)
                                (setf (plist-get (cdr dark-branch) key) color)
                                ;; TODO? siehe unten
-                               (setf (plist-get (cdr h-branch) key) color))
+                               ;; (setf (plist-get (cdr h-branch) key) color)
+                               )
                       (setf (plist-get (cdr light-branch) key) (car color))
                       (setf (plist-get (cdr dark-branch) key) (cdr color))
                       ;; TODO? siehe unten
-                      (setf (plist-get (cdr h-branch) key)
-                            (if (eq default 'dark) (cdr color) (car color)))
+                      ;; (setf (plist-get (cdr h-branch) key)
+                      ;;       (if (eq default 'dark) (cdr color) (car color)))
                       ;; ---
                       (setq has-dark-light t)))))
         (setcolor :background)
@@ -234,14 +254,15 @@ Set it to 0 or 1 if you use powerline or similar packages."
                                 (setf (plist-get val key) color)
                                 (setf (plist-get (cdr dark-branch) prop-key) val)
                                 ;; TODO? siehe unten
-                                (setq val (copy-sequence val))
-                                (setf (plist-get val key) color)
-                                (setf (plist-get (cdr h-branch) prop-key) val))
+                                ;; (setq val (copy-sequence val))
+                                ;; (setf (plist-get val key) color)
+                                ;; (setf (plist-get (cdr h-branch) prop-key) val)
+                                )
                             ;; TODO
-                            (setf (plist-get val key)
-                                  (if (eq default 'dark) (cdr color) (car color)))
-                            (setf (plist-get (cdr h-branch) prop-key) val)
-                            (setq val (copy-sequence val))
+                            ;; (setf (plist-get val key)
+                            ;;       (if (eq default 'dark) (cdr color) (car color)))
+                            ;; (setf (plist-get (cdr h-branch) prop-key) val)
+                            ;; (setq val (copy-sequence val))
                             ;; ---
                             (setf (plist-get val key) (car color))
                             (setf (plist-get (cdr light-branch) prop-key) val)
@@ -252,8 +273,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
         (setcolor :box :color))
 
       ;; TODO?
-      (setf (alist-get t (cadr face))
-            (cdr h-branch))
+      ;; (setf (alist-get t (cadr face))
+      ;;       (cdr h-branch))
       ;; ---
       (setf (alist-get '((background dark)) (cadr face) nil nil 'equal)
             (cdr dark-branch))
@@ -261,7 +282,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
             (cdr light-branch))))
   face)
 
-(defun hannover-theme-faces (variant)
+(defun hannover-theme-faces (&optional variant)
   "TODO"
   (cl-flet ((faces (&rest faces-def)
               (mapcar
@@ -273,8 +294,12 @@ Set it to 0 or 1 if you use powerline or similar packages."
             (flip #'hannover-flip))
     (let-alist hannover-colors
       (faces
-       `(default ((h :foreground ,.fg
-                     :background ,(if (eq variant 'dark) (dark .bg) (light .bg)))))
+       (cond ((eq variant 'dark)
+              `(default ((t :foreground ,(dark .fg) :background ,(dark .bg)))))
+             ((eq variant 'light)
+              `(default ((t :foreground ,(light .fg) :background ,(light .bg)))))
+             (t
+              `(default ((h :foreground ,.fg :background ,.bg)))))
        `(cursor ((h :background ,.cursor)))
        `(escape-glyph ((h :foreground ,.fg-escape)))
        `(homoglyph ((h :foreground ,.fg-escape)))
@@ -314,16 +339,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(link ((h :underline (:color foreground-color :style line) :foreground ,.blue)))
        `(link-visited ((h :underline (:color foreground-color :style line) :foreground ,.purple)))
        `(tooltip ((h :inherit (default) :background ,.bg-tooltip :foreground ,.fg-tooltip)))
-       `(isearch ((h :background ,.fg :foreground ,.bg :distant-foreground ,.bg)))
+       `(isearch ((h :background ,.pale-blue :foreground ,.bg :distant-foreground ,.bg)))
        `(isearch-fail ((h :inverse-video t :inherit (error))))
-       `(lazy-highlight ((h :inherit isearch :distant-foreground ,.bg)))
+       `(lazy-highlight ((h :background ,.fg :foreground ,.bg :distant-foreground ,.bg)))
        `(match ((((type nil) (background light)) :foreground ,(light .yellow) :background ,(light .2-yellow) :underline t)
                 (((type nil) (background dark))  :foreground ,(dark  .yellow) :background ,(dark  .2-yellow) :underline t)
                 (((background light))            :foreground ,(light .yellow) :background ,(light .2-yellow) :box (:line-width (-1 . -1) :color ,.1-yellow))
                 (((background dark))             :foreground ,(dark  .yellow) :background ,(dark  .2-yellow) :box (:line-width (-1 . -1) :color ,.1-yellow))))
        `(next-error ((h :inherit (region))))
        `(query-replace ((h :inverse-video t :background ,.bg :foreground ,.red)))
-       `(hl-line ((h :background ,(mix .bg .bg-highlight 0.35))))
+       `(hl-line ((h :background ,(mix .bg .bg-highlight 0.5))))
        `(fill-column-indicator ((h :foreground ,(mix .bg .fg 0.1))))
        `(nobreak-space ((h :foreground ,.yellow)))
        `(error ((h :foreground ,.red)))
@@ -935,6 +960,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(goggles-added ((h :inherit diff-added)))
        `(goggles-changed ((h :inherit diff-changed)))
        `(goggles-removed ((h :inherit diff-removed)))
+
+       ;; extra fontlock faces
+       `(font-lock-bracket-face ((h :inherit (font-lock-punctuation-face))))
+       `(font-lock-delimiter-face ((h :inherit (font-lock-punctuation-face))))
+       `(font-lock-escape-face ((h :foreground ,.fl-const)))
+       `(font-lock-number-face ((h :foreground ,.fl-const)))
+       `(font-lock-misc-punctuation-face ((h :inherit (font-lock-punctuation-face))))
+       `(font-lock-operator-face ((h :foreground ,.fl-keyword)))
+       `(font-lock-property-face ((h :slant italic)))
+       `(font-lock-punctuation-face ((h :foreground ,(mix .grey .fg 0.25))))
 
        ;; tree-sitter
        `(tree-sitter-hl-face:variable.special ((h :inherit font-lock-variable-name-face)))
