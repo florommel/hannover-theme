@@ -1,4 +1,4 @@
-;;; hannover-night-theme.el --- Dark and light themes with moderate contrast
+;;; hannover-midnight-theme.el --- Dark and light themes with moderate contrast
 ;; Copyright (C) 2021-2022, Florian Rommel
 
 ;; Author: Florian Rommel <mail@florommel.de>
@@ -27,17 +27,24 @@
 
 ;;; Code:
 
-(deftheme hannover-night
-  "A light theme with moderate contrast.")
+(deftheme hannover-midnight
+  "A midnight theme with moderate contrast.")
 
 (require 'hannover-theme)
 
-(defvar hannover-night-colors (hannover-default-colors))
+(defvar hannover-midnight-colors
+  (hannover-default-colors
+   (fg '(nil . "#cccccc"))
+   (bg '(nil . "#000000"))
+   (bg-mode-line '(nil . "#27304f"))
+   (bg-highlight (mix bg fg 0.25))
+   (bg-mode-line-inactive (mix bg-highlight bg 0.15))
+   (bg-header-line (mix bg-mode-line-inactive bg 0.35))))
 
 (apply 'custom-theme-set-faces
-       'hannover-night
-       (hannover-theme-faces hannover-night-colors 'dark))
+       'hannover-midnight
+       (hannover-theme-faces hannover-midnight-colors 'dark))
 
-(provide-theme 'hannover-night)
+(provide-theme 'hannover-midnight)
 
-;;; hannover-night-theme.el ends here
+;;; hannover-midnight-theme.el ends here

@@ -39,9 +39,11 @@ E.g.:
 
 (require 'hannover-theme)
 
+(defvar hannover-adaptive-colors (hannover-default-colors))
+
 (apply 'custom-theme-set-faces
        'hannover-adaptive
-       (hannover-theme-faces nil))
+       (hannover-theme-faces hannover-adaptive-colors))
 
 (provide-theme 'hannover-adaptive)
 

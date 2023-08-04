@@ -32,9 +32,11 @@
 
 (require 'hannover-theme)
 
+(defvar hannover-day-colors (hannover-default-colors))
+
 (apply 'custom-theme-set-faces
        'hannover-day
-       (hannover-theme-faces 'light))
+       (hannover-theme-faces hannover-day-colors 'light))
 
 (provide-theme 'hannover-day)
 
