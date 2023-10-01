@@ -71,6 +71,21 @@ Set it to 0 or 1 if you use powerline or similar packages."
   :type 'number
   :group 'hannover-theme)
 
+(defcustom fancy-header-line nil
+  "Header, tab-bar and tab-line use line borders.
+   May conflict with underlined text.
+   For this to work correctly for tab-bar, it must extend to the left,
+   i.e., `tab-bar-format' should contain `tab-bar-format-align-right'"
+  :type 'boolean
+  :group 'hannover-theme)
+
+(defcustom fancy-mode-line nil
+  "Mode-line uses line borders.
+   May conflict with underlined text.
+   For this to work correctly, the mode-line should extend to the right."
+  :type 'boolean
+  :group 'hannover-theme)
+
 (defun hannover-color (basecolors color)
   (if (symbolp color)
       (cdr (assq color basecolors))
@@ -146,7 +161,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
      (red                    '("#99002e" . "#ee7777"))
      (orange                 '("#993800" . "#e59e8d"))
      (green                  '("#4a8000" . "#9eca72"))
-     (yellow                 '("#8f6b00" . "#e7cc99"))
+     (yellow                 '("#856300" . "#e7cc99"))
      (purple                 '("#590094" . "#b49ce2"))
      (cyan                   '("#088691" . "#8ff0f0"))
 
@@ -184,8 +199,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
      (bg-mode-line           '("#c0d5f2" . "#3d4a74"))
      (bg-mode-line-inactive  (mix bg-highlight bg 0.2))
      (bg-header-line         (mix bg-mode-line-inactive bg 0.4))
-     (fg-mode-line           (mix bg-mode-line fg 0.6))
-     (fg-mode-line-inactive  (mix bg-mode-line-inactive fg 0.55))
+     (fg-mode-line           (cons (light (mix bg-mode-line fg 0.5))
+                                   (dark (mix bg-mode-line fg 0.6))))
+     (fg-mode-line-inactive  (cons (light (mix bg-mode-line-inactive fg 0.45))
+                                   (dark (mix bg-mode-line-inactive fg 0.55))))
 
      (bg-region              '("#cce1ff" . "#4c64ad"))
      (fg-escape              yellow)
@@ -204,80 +221,82 @@ Set it to 0 or 1 if you use powerline or similar packages."
      (fl-warning             red)
      (bg-warning             yellow))))
 
+(defun hannover-face-translate-special-display (display-sym default face additional-spec)
+  "Translate the special hannover display declarations to ordinary
+  display specifications"
+  (let ((spec-dark  (if additional-spec (append (list additional-spec) '((background dark)))
+                      (append additional-spec '((background dark)))))
+        (spec-light (if additional-spec (append (list additional-spec) '((background light)))
+                      (append additional-spec '((background light)))))
+        (spec-t     (if additional-spec (list additional-spec) t)))
+    (when-let (h-branch (assq display-sym (cadr face)))
+      (setf (cadr face) (assq-delete-all display-sym (cadr face)))
+      (when (or (assoc spec-dark  (cadr face))
+                (assoc spec-light (cadr face))
+                (assoc spec-t     (cadr face)))
+        (error "%s, %s and %s is forbidden when using %s"
+               spec-dark spec-light spec-t display-sym))
+      (let* ((dark-branch  (cons spec-dark  (copy-tree (cdr h-branch))))
+             (light-branch (cons spec-light (copy-tree (cdr h-branch))))
+             (has-dark-light nil))
+
+        (cl-flet ((setcolor (key)
+                    (when-let (color (plist-get (cdr h-branch) key))
+                      (if (nlistp color)
+                          (progn (setf (plist-get (cdr light-branch) key) color)
+                                 (setf (plist-get (cdr dark-branch)  key) color)
+                                 (setf (plist-get (cdr h-branch) key) color))
+                        (setf (plist-get (cdr light-branch) key) (car color))
+                        (setf (plist-get (cdr dark-branch)  key) (cdr color))
+                        (setf (plist-get (cdr h-branch) key)
+                              (if (eq default 'dark) (cdr color) (car color)))
+                        (setq has-dark-light t)))))
+          (setcolor :background)
+          (setcolor :foreground)
+          (setcolor :distant-foreground)
+          (setcolor :overline))
+
+        (cl-flet ((setcolor (prop-key key)
+                    (let ((val (plist-get (cdr h-branch) prop-key)))
+                      (when (listp val) ;; may be t
+                        (when-let (val (copy-sequence val))
+                          (when-let (color (plist-get val key))
+                            (if (nlistp color)
+                                (progn
+                                  (setf (plist-get val key) color)
+                                  (setf (plist-get (cdr light-branch) prop-key) val)
+                                  (setq val (copy-sequence val))
+                                  (setf (plist-get val key) color)
+                                  (setf (plist-get (cdr dark-branch) prop-key) val)
+                                  (setq val (copy-sequence val))
+                                  (setf (plist-get val key) color)
+                                  (setf (plist-get (cdr h-branch) prop-key) val))
+                              (setf (plist-get val key)
+                                    (if (eq default 'dark) (cdr color) (car color)))
+                              (setf (plist-get (cdr h-branch) prop-key) val)
+                              (setq val (copy-sequence val))
+                              (setf (plist-get val key) (car color))
+                              (setf (plist-get (cdr light-branch) prop-key) val)
+                              (setq val (copy-sequence val))
+                              (setf (plist-get val key) (cdr color))
+                              (setf (plist-get (cdr dark-branch) prop-key) val))))))))
+          (setcolor :underline :color)
+          (setcolor :box :color))
+
+        (if default
+            (setf (alist-get spec-t (cadr face))
+                  (cdr h-branch))
+          (setf (alist-get spec-dark  (cadr face) nil nil 'equal)
+                (cdr dark-branch))
+          (setf (alist-get spec-light (cadr face) nil nil 'equal)
+                (cdr light-branch)))))))
+
 (defun hannover-face (default face)
-  "Build a face definition with hannover-night color." ;; TODO descibe h- extensions
-  (when-let (h-branch (assq 'h (cadr face)))
-    (setf (cadr face) (assq-delete-all 'h (cadr face)))
-    (when (or (assoc '((background dark)) (cadr face))
-              (assoc '((background light)) (cadr face))
-              (assq t (cadr face)))
-      (error "(background light), (background dark) and t is forbidden when using h"))
-    (let* ((dark-branch (cons '((background light)) (copy-tree (cdr h-branch))))
-           (light-branch (cons '((background light)) (copy-tree (cdr h-branch))))
-           (has-dark-light nil))
-
-      (cl-flet ((setcolor (key)
-                  (when-let (color (plist-get (cdr h-branch) key))
-                    (if (nlistp color)
-                        (progn (setf (plist-get (cdr light-branch) key) color)
-                               (setf (plist-get (cdr dark-branch) key) color)
-                               ;; TODO? siehe unten
-                               (setf (plist-get (cdr h-branch) key) color)
-                               ;; ---
-                               )
-                      (setf (plist-get (cdr light-branch) key) (car color))
-                      (setf (plist-get (cdr dark-branch) key) (cdr color))
-                      ;; TODO? siehe unten
-                      (setf (plist-get (cdr h-branch) key)
-                            (if (eq default 'dark) (cdr color) (car color)))
-                      ;; ---
-                      (setq has-dark-light t)))))
-        (setcolor :background)
-        (setcolor :foreground)
-        (setcolor :distant-foreground)
-        (setcolor :overline))
-
-      (cl-flet ((setcolor (prop-key key)
-                  (let ((val (plist-get (cdr h-branch) prop-key)))
-                    (when (listp val) ;; may be t
-                      (when-let (val (copy-sequence val))
-                        (when-let (color (plist-get val key))
-                          (if (nlistp color)
-                              (progn
-                                (setf (plist-get val key) color)
-                                (setf (plist-get (cdr light-branch) prop-key) val)
-                                (setq val (copy-sequence val))
-                                (setf (plist-get val key) color)
-                                (setf (plist-get (cdr dark-branch) prop-key) val)
-                                ;; TODO? siehe unten
-                                (setq val (copy-sequence val))
-                                (setf (plist-get val key) color)
-                                (setf (plist-get (cdr h-branch) prop-key) val)
-                                ;; ---
-                                )
-                            ;; TODO
-                            (setf (plist-get val key)
-                                  (if (eq default 'dark) (cdr color) (car color)))
-                            (setf (plist-get (cdr h-branch) prop-key) val)
-                            (setq val (copy-sequence val))
-                            ;; ---
-                            (setf (plist-get val key) (car color))
-                            (setf (plist-get (cdr light-branch) prop-key) val)
-                            (setq val (copy-sequence val))
-                            (setf (plist-get val key) (cdr color))
-                            (setf (plist-get (cdr dark-branch) prop-key) val))))))))
-        (setcolor :underline :color)
-        (setcolor :box :color))
-
-      ;; TODO?
-      (if default
-          (setf (alist-get t (cadr face))
-                (cdr h-branch))
-        ;; ---
-        (setf (alist-get '((background dark)) (cadr face) nil nil 'equal)
-              (cdr dark-branch))
-        (setf (alist-get '((background light)) (cadr face) nil nil 'equal)
-              (cdr light-branch)))))
+  "Build a face definition with hannover-night color."
+  ;; TODO descibe h- extensions
+  ;; Order is important
+  (hannover-face-translate-special-display 'h     default face nil)
+  (hannover-face-translate-special-display 'h-tty default face '(type nil))
   face)
 
 (defun hannover-theme-faces (basecolors &optional variant)
@@ -337,13 +356,13 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(link ((h :underline (:color foreground-color :style line) :foreground ,.blue)))
        `(link-visited ((h :underline (:color foreground-color :style line) :foreground ,.purple)))
        `(tooltip ((h :inherit (default) :background ,.bg-tooltip :foreground ,.fg-tooltip)))
-       `(isearch ((h :background ,.pale-blue :foreground ,.bg :distant-foreground ,.bg)))
+       `(isearch ((h :background ,.blue :foreground ,.bg :distant-foreground ,.bg)))
+       ;; `(isearch ((h :background ,.1-blue :foreground ,.fg :distant-foreground ,.fg :box (:line-width (-1 . -1) :color ,.pale-blue))))
        `(isearch-fail ((h :inverse-video t :inherit (error))))
+       ;; `(lazy-highlight ((h :background ,.dim :foreground ,.fg :distant-foreground ,.fg :box (:line-width (-1 . -1) :color ,.fg))))
        `(lazy-highlight ((h :background ,.fg :foreground ,.bg :distant-foreground ,.bg)))
-       `(match ((((type nil) (background light)) :foreground ,(light .yellow) :background ,(light .2-yellow) :underline t)
-                (((type nil) (background dark))  :foreground ,(dark  .yellow) :background ,(dark  .2-yellow) :underline t)
-                (((background light))            :foreground ,(light .yellow) :background ,(light .2-yellow) :box (:line-width (-1 . -1) :color ,.1-yellow))
-                (((background dark))             :foreground ,(dark  .yellow) :background ,(dark  .2-yellow) :box (:line-width (-1 . -1) :color ,.1-yellow))))
+       `(match ((h-tty :foreground ,.yellow :background ,.2-yellow :underline t)
+                (h     :foreground ,.yellow :background ,.2-yellow :box (:line-width (-1 . -1) :color ,.1-yellow))))
        `(next-error ((h :inherit (region))))
        `(query-replace ((h :inverse-video t :background ,.bg :foreground ,.red)))
        `(hl-line ((h :background ,(mix .bg .bg-highlight 0.7))))
@@ -353,31 +372,43 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(warning ((h :foreground ,.yellow)))
        `(success ((h :foreground ,.green)))
 
-       `(header-line ((h :box (:line-width ,hannover-header-line-box-width :color ,.bg-header-line :style nil) :foreground ,.fg :background ,.bg-header-line)))
-       `(mode-line ((h :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line :style nil) :foreground ,.fg-mode-line :background ,.bg-mode-line)))
-       `(mode-line-inactive ((h :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line-inactive :style nil) :foreground ,.fg-mode-line-inactive :background ,.bg-mode-line-inactive)))
+       `(header-line ((h-tty :foreground ,.fg :background ,.bg-header-line)
+                      (h     :foreground ,.fg :background ,.bg-header-line
+                             :box (:line-width ,hannover-header-line-box-width :color ,.bg-header-line :style nil)
+                             :underline ,(if fancy-header-line `(:color ,.dim :style line :position t) nil)
+                             :overline  ,(if fancy-header-line .bg nil))))
+       `(mode-line ((h-tty :foreground ,.fg-mode-line :background ,.bg-mode-line)
+                    (h     :foreground ,.fg-mode-line :background ,.bg-mode-line
+                           :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line :style nil)
+                           :underline ,(if fancy-mode-line `(:color ,(mix .bg-mode-line .fg 0.1) :style line :position t) nil)
+                           :overline  ,(if fancy-mode-line (mix .bg-mode-line .fg 0.1) nil))))
+       `(mode-line-inactive ((h-tty :foreground ,.fg-mode-line-inactive :background ,.bg-mode-line-inactive)
+                             (h     :foreground ,.fg-mode-line-inactive :background ,.bg-mode-line-inactive
+                                    :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line-inactive :style nil)
+                                    :underline ,(if fancy-mode-line `(:color ,(mix .dim .fg 0.05) :style line :position t) nil)
+                                    :overline  ,(if fancy-mode-line (mix .dim .fg 0.05) nil))))
        `(mode-line-buffer-id ((h :foreground ,.fg)))
        `(mode-line-emphasis ((h :foreground ,.yellow :distant-foreground ,(flip .yellow) :weight bold)))
        `(mode-line-highlight ((h :foreground ,.yellow)))
        `(mode-line-special ((h :background ,.yellow :foreground ,.bg :box (:line-width ,hannover-mode-line-box-width :color ,.yellow :style nil))))
 
        ;; tab-line
-       `(tab-line ((h :inherit (mode-line-inactive) :box nil :foreground ,.fg :overline ,.grey)))
+       `(tab-line ((h :inherit (header-line) :box nil :foreground ,.fg :weight normal)))
        `(tab-line-close-highlight ((h :foreground ,.red)))
        `(tab-line-highlight ((h :foreground ,.pale-blue)))
-       `(tab-line-tab ((h :inherit (tab-line) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg) :background ,.bg :overline ,.grey)))
-       `(tab-line-tab-current ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg) :background ,.bg :overline ,.1-blue)))
-       `(tab-line-tab-group ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.2-purple) :background ,.2-purple :overline ,.1-purple)))
-       `(tab-line-tab-inactive ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg-mode-line-inactive) :background ,.bg-mode-line-inactive  :overline ,.grey)))
+       `(tab-line-tab ((h :inherit (tab-line) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg) :background ,.bg)))
+       `(tab-line-tab-current ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.dim) :background ,.dim)))
+       `(tab-line-tab-group ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.2-purple) :background ,.2-purple)))
+       `(tab-line-tab-inactive ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg-header-line) :background ,.bg-header-line)))
        `(tab-line-tab-inactive-alternate ((h :inherit (tab-line-tab-inactive))))
        `(tab-line-tab-modified ((h :foreground ,.orange)))
        `(tab-line-tab-special ((h :slant italic)))
 
        ;; tab-bar
-       `(tab-bar ((h :inherit (mode-line-inactive) :box nil :foreground ,.fg)))
-       `(tab-bar-tab ((h :inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-tab-bar-box-width)) . ,(round (* 0.85 hannover-tab-bar-box-width))) :color ,.bg-header-line) :background ,.bg-header-line :foreground ,.fg)))
-       `(tab-bar-tab-group-current ((h :inherit (tab-bar-tab) :weight bold)))
-       `(tab-bar-tab-inactive ((h :inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-tab-bar-box-width)) . ,(round (* 0.85 hannover-tab-bar-box-width))) :color ,.bg-mode-line-inactive) :background ,.bg-mode-line-inactive :foreground ,.fg-mode-line-inactive)))
+       `(tab-bar ((h :inherit (header-line) :box nil :foreground ,.fg :weight normal)))
+       `(tab-bar-tab ((h :inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-tab-bar-box-width)) . ,hannover-tab-bar-box-width) :color ,.dim) :background ,.dim :foreground ,.fg)))
+       `(tab-bar-tab-group-current ((h :inherit (tab-bar-tab) :foreground ,.green)))
+       `(tab-bar-tab-inactive ((h :inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-tab-bar-box-width)) . ,hannover-tab-bar-box-width) :color ,.bg-header-line) :background ,.bg-header-line :foreground ,.fg-mode-line-inactive)))
        `(tab-bar-tab-group-inactive ((h :inherit (tab-bar-tab-inactive) :foreground ,.grey)))
        `(tab-bar-tab-ungrouped ((h :inherit (tab-bar-tab-inactive) :foreground ,.grey)))
 
@@ -702,7 +733,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(corfu-border ((h :background ,.1-blue)))
        `(corfu-annotation ((h :inherit shadow :slant italic)))
        `(corfu-bar ((h :background ,.blue)))
-       `(corfu-current ((h :background ,(mix .2-blue .fg 0.05))))
+       `(corfu-current ((h :background ,(mix .2-blue .fg 0.15))))
        `(corfu-deprecated ((h :inherit shadow :strike-through t)))
        `(corfu-echo ((h :inherit shadow)))
 
@@ -814,7 +845,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-checkbox-statistics-done ((h :inherit (org-done))))
        `(org-checkbox-statistics-todo ((h :inherit (org-todo))))
        `(org-clock-overlay ((h :foreground ,.bg :background ,.blue)))
-       `(org-code ((h :background ,(mix .bg .grey 0.4) :extend t)))
+       `(org-code ((h :background ,(mix .bg .grey 0.3) :box (:color ,(mix .bg .grey 0.5) :line-width (-1 . -1)) :extend t)))
        `(org-column ((h :background ,(mix .bg .grey 0.65))))
        `(org-column-title ((h :inherit (org-column) :weight bold :underline t)))
        `(org-date ((h :underline t :foreground ,.cyan)))
@@ -825,7 +856,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-document-title ((h :weight bold :foreground ,.yellow)))
        `(org-drawer ((h :weight bold :foreground ,.blue)))
        `(org-ellipsis ((h :underline t :foreground ,.yellow)))
-       `(org-footnote ((h :underline t :foreground ,.cyan)))
+       `(org-footnote ((h :foreground ,.cyan)))
        `(org-formula ((h :foreground ,.green)))
        `(org-habit-alert-face ((h :background ,.yellow :foreground ,.bg)))
        `(org-habit-alert-future-face ((h :background ,.1-yellow :foreground ,.bg)))
@@ -861,7 +892,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-scheduled-today ((h :foreground ,.green)))
        `(org-sexp-date ((h :foreground ,.cyan)))
        `(org-special-keyword ((h :foreground ,.blue)))
-       `(org-table ((h :background ,(mix .bg .grey 0.2))))
+       `(org-table ((h :foreground ,.fg :background ,(mix .bg .grey 0.2))))
        `(org-tag ((h nil)))
        `(org-tag-group ((h :inherit (org-tag))))
        `(org-target ((h :underline t)))
@@ -900,48 +931,35 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(markdown-line-break-face ((h :inherit (markdown-markup-face))))
 
        ;; ;; flymake
-       `(flymake-error   ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-red) :style wave)))
-                          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-red) :style wave)))
-                          (t :inherit (error))))
-       `(flymake-warning ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-yellow) :style wave)))
-                          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-yellow) :style wave)))
-                          (t :inherit (warning))))
-       `(flymake-note    ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .green) :style wave)))
-                          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .green) :style wave)))
-                          (t :inherit (success))))
+       `(flymake-error   ((h-tty :underline (:color ,.high-red :style wave) :foreground ,.red)
+                          (h     :underline (:color ,.high-red :style wave))))
+       `(flymake-warning ((h-tty :underline (:color ,.high-yellow :style wave) :foreground ,.yellow)
+                          (h     :underline (:color ,.high-yellow :style wave))))
+       `(flymake-note    ((h-tty :underline (:color ,.green :style wave) :foreground ,.green)
+                          (h     :underline (:color ,.green :style wave))))
+       `(flymake-note-echo ((h :inherit compilation-info)))
 
        ;; ;; Flyspell
-       `(flyspell-duplicate ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-yellow) :style wave)))
-                             (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-yellow) :style wave)))
-                             (t :inherit (warning))))
-       `(flyspell-incorrect ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-red) :style wave)))
-                             (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-red) :style wave)))
-                             (t :inherit (error))))
+       `(flyspell-duplicate ((h-tty :underline (:color ,.high-yellow :style wave) :foreground ,.yellow)
+                             (h     :underline (:color ,.high-yellow :style wave))))
+       `(flyspell-incorrect ((h-tty :underline (:color ,.high-red :style wave) :foreground ,.red)
+                             (h     :underline (:color ,.high-red :style wave))))
 
        ;; ;; Flycheck
-       `(flycheck-error   ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-red) :style wave)))
-                           (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-red) :style wave)))
-                           (t :inherit (error))))
-       `(flycheck-warning ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .high-yellow) :style wave)))
-                           (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .high-yellow) :style wave)))
-                           (t :inherit (warning))))
-       `(flycheck-info    ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .green) :style wave)))
-                           (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .green) :style wave)))
-                           (t :inherit (success))))
+       `(flycheck-error   ((h-tty :underline (:color ,.high-red :style wave) :foreground ,.red)
+                           (h     :underline (:color ,.high-red :style wave))))
+       `(flycheck-warning ((h-tty :underline (:color ,.high-yellow :style wave) :foreground ,.yellow)
+                           (h     :underline (:color ,.high-yellow :style wave))))
+       `(flycheck-info    ((h-tty :underline (:color ,.green :style wave) :foreground ,.green)
+                           (h     :underline (:color ,.green :style wave))))
 
        ;; writegood
-       `(writegood-duplicates-face
-         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .orange) :style wave)))
-          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .orange) :style wave)))
-          (t :inherit (success))))
-       `(writegood-passive-voice-face
-         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .blue) :style wave)))
-          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .blue) :style wave)))
-          (t :inherit (success))))
-       `(writegood-weasels-face
-         ((((background light) (supports :underline (:style wave))) (:underline (:color ,(light .purple) :style wave)))
-          (((background dark)  (supports :underline (:style wave))) (:underline (:color ,(dark  .purple) :style wave)))
-          (t :inherit (success))))
+       `(writegood-duplicates-face    ((h-tty :underline (:color ,.high-yellow :style wave) :foreground ,.yellow)
+                                       (h     :underline (:color ,.high-yellow :style wave))))
+       `(writegood-passive-voice-face ((h-tty :underline (:color ,.blue :style wave) :foreground ,.blue)
+                                       (h     :underline (:color ,.blue :style wave))))
+       `(writegood-weasels-face       ((h-tty :underline (:color ,.purple :style wave) :foreground ,.purple)
+                                       (h     :underline (:color ,.purple :style wave))))
 
        ;; hexl
        `(hexl-address-region ((h :foreground ,(mix .bg .blue 0.8))))
@@ -1032,6 +1050,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(lsp-ui-peek-list ((h :background ,.bg-header-line)))
        `(lsp-ui-peek-peek ((h :background ,.bg-header-line)))
        `(lsp-ui-peek-selection ((h :background ,.grey :distant-foreground ,.fg-distant)))
+       `(lsp-inlay-hint-face ((h :inherit (font-lock-comment-face) :slant normal)))
 
        ;; treemacs
        `(treemacs-all-the-icons-file-face ((h :foreground ,.yellow)))
