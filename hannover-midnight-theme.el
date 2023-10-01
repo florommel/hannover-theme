@@ -28,7 +28,10 @@
 ;;; Code:
 
 (deftheme hannover-midnight
-  "A midnight theme with moderate contrast.")
+  "A midnight theme with moderate contrast."
+  :family 'hannover
+  :kind 'color-scheme
+  :background-mode 'dark)
 
 (require 'hannover-theme)
 

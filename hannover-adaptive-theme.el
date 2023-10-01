@@ -35,7 +35,9 @@ to see the colors adapting to the background mode.
 E.g.:
 (progn
   (setq frame-background-mode 'dark)
-  (load-theme 'hannover-adaptive t))")
+  (load-theme 'hannover-adaptive t))"
+  :family 'hannover
+  :kind 'color-scheme)
 
 (require 'hannover-theme)
 
