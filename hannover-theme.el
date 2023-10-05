@@ -71,7 +71,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
   :type 'number
   :group 'hannover-theme)
 
-(defcustom fancy-header-line nil
+(defcustom hannover-fancy-header-line nil
   "Header, tab-bar and tab-line use line borders.
    May conflict with underlined text.
    For this to work correctly for tab-bar, it must extend to the left,
@@ -79,7 +79,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
   :type 'boolean
   :group 'hannover-theme)
 
-(defcustom fancy-mode-line nil
+(defcustom hannover-fancy-mode-line nil
   "Mode-line uses line borders.
    May conflict with underlined text.
    For this to work correctly, the mode-line should extend to the right."
@@ -375,18 +375,18 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(header-line ((h-tty :foreground ,.fg :background ,.bg-header-line)
                       (h     :foreground ,.fg :background ,.bg-header-line
                              :box (:line-width ,hannover-header-line-box-width :color ,.bg-header-line :style nil)
-                             :underline ,(if fancy-header-line `(:color ,.dim :style line :position t) nil)
-                             :overline  ,(if fancy-header-line .bg nil))))
+                             :underline ,(if hannover-fancy-header-line `(:color ,.dim :style line :position t) nil)
+                             :overline  ,(if hannover-fancy-header-line .bg nil))))
        `(mode-line ((h-tty :foreground ,.fg-mode-line :background ,.bg-mode-line)
                     (h     :foreground ,.fg-mode-line :background ,.bg-mode-line
                            :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line :style nil)
-                           :underline ,(if fancy-mode-line `(:color ,(mix .bg-mode-line .fg 0.1) :style line :position t) nil)
-                           :overline  ,(if fancy-mode-line (mix .bg-mode-line .fg 0.1) nil))))
+                           :underline ,(if hannover-fancy-mode-line `(:color ,(mix .bg-mode-line .fg 0.1) :style line :position t) nil)
+                           :overline  ,(if hannover-fancy-mode-line (mix .bg-mode-line .fg 0.1) nil))))
        `(mode-line-inactive ((h-tty :foreground ,.fg-mode-line-inactive :background ,.bg-mode-line-inactive)
                              (h     :foreground ,.fg-mode-line-inactive :background ,.bg-mode-line-inactive
                                     :box (:line-width ,hannover-mode-line-box-width :color ,.bg-mode-line-inactive :style nil)
-                                    :underline ,(if fancy-mode-line `(:color ,(mix .dim .fg 0.05) :style line :position t) nil)
-                                    :overline  ,(if fancy-mode-line (mix .dim .fg 0.05) nil))))
+                                    :underline ,(if hannover-fancy-mode-line `(:color ,(mix .dim .fg 0.05) :style line :position t) nil)
+                                    :overline  ,(if hannover-fancy-mode-line (mix .dim .fg 0.05) nil))))
        `(mode-line-buffer-id ((h :foreground ,.fg)))
        `(mode-line-emphasis ((h :foreground ,.yellow :distant-foreground ,(flip .yellow) :weight bold)))
        `(mode-line-highlight ((h :foreground ,.yellow)))
