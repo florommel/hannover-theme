@@ -1,4 +1,4 @@
-#+TITLE: Hannover Night Emacs Theme
+#+TITLE: Hannover Emacs Themes
 #+AUTHOR: Florian Rommel
 #+LANGUAGE: en
 
@@ -10,21 +10,18 @@
 
 [[./images/org.svg]]
 
-A dark Emacs theme with moderate contrast.
+Light and dark Emacs themes with moderate contrast.
 Provides carefully crafted faces for lots of packages.
 
 Colors and some other aspects of the theme can be configured
-(See the hannover-night group).
-
-The main colors are exported as global variables, so they can be used for
-customizations.
+(See the hannover-theme group).
 
 
 * Installation
 
 Clone the repository:
 #+BEGIN_SRC shell
-git clone git://github.com/florommel/hannover-night-theme.git
+git clone git://github.com/florommel/hannover-theme.git
 #+END_SRC
 
 Include the theme in your init file:
@@ -37,7 +34,7 @@ Include the theme in your init file:
 * Tips
 
 You can customize the colors and other parameters.
-Have a look at the ~hannover-night-theme~ group.
+Have a look at the ~hannover-theme~ group.
 
 If you use ~powerline~ or similar packages, you might want to set
 ~hannover-night-mode-box-width~ to 0 or 1.
@@ -45,11 +42,12 @@ If you use ~powerline~ or similar packages, you might want to set
 
 * Supported Packages
 
-tab-line, tab-bar, powerline, window-divider, term, multiple cursors,
-dired, diredfl, magit, diff, diff-hl, git-gutter, wgrep, avy, anzu,
-ivy/swiper, selectrum, vertico, orderless, paren showing, compilation,
-display-line-numbers, company, company-posframe, popup, corfu,
-rainbow-delimiters, highlight, highlight-changes, symbol-overlay,
-bookmark, bm, sh, auctex, outline, org, hyperbole, devdocs, markdown,
-flymake, Flyspell, Flycheck, hexl, imenu-list, ledger, neotree,
-goggles, tree-sitter, eglot, lsp, treemacs, yascroll, which-func
+tab-line, tab-bar, powerline, window-divider, term, eshell, multiple
+cursors, dired, diredfl, dired-filter, magit, diff, diff-hl,
+git-gutter, wgrep, avy, anzu, ivy/swiper, selectrum, vertico,
+orderless, show-paren, compilation, display-line-numbers, company,
+company-posframe, popup, corfu, rainbow-delimiters, highlight,
+highlight-changes, symbol-overlay, bookmark, bm, sh, auctex, outline,
+org, hyperbole, devdocs, markdown, flymake, Flyspell, Flycheck,
+writegood, hexl, imenu-list, ledger, neotree, goggles, tree-sitter,
+eglot, lsp, treemacs, yascroll, which-func

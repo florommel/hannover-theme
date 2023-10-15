@@ -1,5 +1,5 @@
 ;;; hannover-theme.el --- Dark and light themes with moderate contrast
-;; Copyright (C) 2021-2022, Florian Rommel
+;; Copyright (C) 2021-2023, Florian Rommel
 
 ;; Author: Florian Rommel <mail@florommel.de>
 ;; Maintainer: Florian Rommel <mail@florommel.de>
