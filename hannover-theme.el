@@ -86,6 +86,11 @@ Set it to 0 or 1 if you use powerline or similar packages."
   :type 'boolean
   :group 'hannover-theme)
 
+(defcustom hannover-fancy-org-blocks nil
+  "Org blocks use line borders."
+  :type 'boolean
+  :group 'hannover-theme)
+
 (defun hannover-color (basecolors color)
   (if (symbolp color)
       (cdr (assq color basecolors))
@@ -839,8 +844,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-agenda-structure ((h :foreground ,.blue)))
        `(org-archived ((h :foreground ,.grey)))
        `(org-block ((h :background ,(mix .bg .grey 0.2) :extend t)))
-       `(org-block-begin-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic)))
-       `(org-block-end-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic)))
+       `(org-block-begin-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic :overline  ,(if hannover-fancy-org-blocks .dim nil))))
+       `(org-block-end-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic :underline ,(if hannover-fancy-org-blocks `(:color ,.dim :style line :position t) nil))))
        `(org-checkbox ((h :foreground ,.fg :background ,(mix .bg .grey 0.3))))
        `(org-checkbox-statistics-done ((h :inherit (org-done))))
        `(org-checkbox-statistics-todo ((h :inherit (org-todo))))
