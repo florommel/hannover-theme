@@ -1078,9 +1078,21 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; which-func
        `(which-func ((h nil)))
 
+       ;; minimap
        `(minimap-active-region-background ((h :background ,.bg-header-line)))
        `(minimap-current-line-face ((h :background ,(mix .1-blue .2-blue 0.4) :extend t)))
 
+       ;; hideshowvis
+       `(hideshowvis-hidden-region-face((h :foreground ,.grey :background ,(mix .bg .grey 0.2)
+                                           :box (:line-width (1 . -1) :color ,.grey))))
+       `(hideshowvis-hidable-face ((h :box (:line-width (-1 . -1) :color ,.grey))))
+       `(hideshowvis-hidden-fringe-face ((h :foreground ,.grey)))
+       ;; `(hideshowvis-hidden-region-face((h :foreground ,.red :background ,.2-red
+       ;;                                     :box (:line-width (-1 . -1) :colo0r ,.1-red))))
+       ;; `(hideshowvis-hidable-face ((h :box (:line-width (-1 . -1) :color ,.1-red))))
+       ;; `(hideshowvis-hidden-fringe-face ((h :foreground ,.red)))
+
+       ;; persp
        `(persp-selected-face ((h :foreground ,.yellow)))))))
 
 (provide 'hannover-theme)

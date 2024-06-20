@@ -50,4 +50,5 @@ company-posframe, popup, corfu, rainbow-delimiters, highlight,
 highlight-changes, symbol-overlay, bookmark, bm, sh, auctex, outline,
 org, hyperbole, devdocs, markdown, flymake, Flyspell, Flycheck,
 writegood, hexl, imenu-list, ledger, neotree, goggles, tree-sitter,
-eglot, lsp, treemacs, yascroll, which-func
+eglot, lsp, treemacs, yascroll, which-func, minimap, hideshowvis,
+persp
