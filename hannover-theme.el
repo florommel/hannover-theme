@@ -850,7 +850,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-checkbox-statistics-done ((h :inherit (org-done))))
        `(org-checkbox-statistics-todo ((h :inherit (org-todo))))
        `(org-clock-overlay ((h :foreground ,.bg :background ,.blue)))
-       `(org-code ((h :background ,(mix .bg .grey 0.3) :box (:color ,(mix .bg .grey 0.5) :line-width (-1 . -1)) :extend t)))
+       `(org-code ((h :background ,(mix .bg .grey 0.3) :extend t)))
        `(org-column ((h :background ,(mix .bg .grey 0.65))))
        `(org-column-title ((h :inherit (org-column) :weight bold :underline t)))
        `(org-date ((h :underline t :foreground ,.cyan)))
