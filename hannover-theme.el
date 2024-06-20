@@ -430,6 +430,25 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(window-divider-first-pixel ((h :foreground ,.bg)))
        `(window-divider-last-pixel ((h :foreground ,.bg)))
 
+       ;; ansi-color
+       `(ansi-color-black ((h :background ,.dim :foreground ,.dim)))
+       `(ansi-color-white ((h :background "white" :foreground "white")))
+       `(ansi-color-blue ((h :background ,.blue :foreground ,.blue)))
+       `(ansi-color-cyan ((h :background ,.cyan :foreground ,.cyan)))
+       `(ansi-color-green ((h :background ,.green :foreground ,.green)))
+       `(ansi-color-magenta ((h :background ,.purple :foreground ,.purple)))
+       `(ansi-color-red ((h :background ,.red :foreground ,.red)))
+       `(ansi-color-yellow ((h :background ,.yellow :foreground ,.yellow)))
+
+       `(ansi-color-bright-black ((h :background ,.dim :foreground ,.dim)))
+       `(ansi-color-bright-white ((h :background "white" :foreground "white")))
+       `(ansi-color-bright-blue ((h :background ,.blue :foreground ,.blue)))
+       `(ansi-color-bright-cyan ((h :background ,.cyan :foreground ,.cyan)))
+       `(ansi-color-bright-green ((h :background ,.green :foreground ,.green)))
+       `(ansi-color-bright-magenta ((h :background ,.purple :foreground ,.purple)))
+       `(ansi-color-bright-red ((h :background ,.red :foreground ,.red)))
+       `(ansi-color-bright-yellow ((h :background ,.yellow :foreground ,.yellow)))
+
        ;; term
        `(term-color-black ((h :background ,.dim :foreground ,.dim)))
        `(term-color-white ((h :background "white" :foreground "white")))
