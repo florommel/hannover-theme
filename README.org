@@ -27,7 +27,8 @@ git clone git://github.com/florommel/hannover-theme.git
 Include the theme in your init file:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'custom-theme-load-path "/path/to/the/cloned/theme/")
-(load-theme 'hannover-night t)
+(add-to-list 'load-path "/path/to/the/cloned/theme/")
+(load-theme 'hannover-night t) ;; or hannover-day, or hannover-midnight
 #+END_SRC
 
 
