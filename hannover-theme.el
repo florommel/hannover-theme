@@ -161,7 +161,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
              (flip (lambda (c) (hannover-flip nil c))))
     (hannover-alist-let* ,overrides
      (fg                     '("#222222" . "#d8d8d8"))
-     (bg                     '("#ffffff" . "#232323"))
+     (bg                     '("#ffffff" . "#202020"))
      (blue                   '("#0059b3" . "#72ace5"))
      (red                    '("#99002e" . "#ee7777"))
      (orange                 '("#993800" . "#e59e8d"))
