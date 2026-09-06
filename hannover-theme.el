@@ -197,7 +197,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
                                    (mix (dark blue) (dark fg) 0.55)))
 
      (fg-tooltip             "black")
-     (bg-tooltip             (dark yellow))
+     (bg-tooltip             (mix "#000000" (dark yellow) 0.9))
 
      (cursor                 blue)
      (bg-highlight           (mix bg fg 0.2))
@@ -326,7 +326,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(escape-glyph ((h :foreground ,.fg-escape)))
        `(homoglyph ((h :foreground ,.fg-escape)))
        `(minibuffer-prompt ((h :foreground ,.orange :slant italic)))
-       `(highlight ((h :underline (:color ,.yellow :style line) :foreground ,.yellow)))
+       `(highlight ((h :foreground ,.yellow)))
        `(region ((h :extend t :background ,.bg-region :distant-foreground ,.fg-distant)))
        `(shadow ((h :foreground ,.fg-shadow)))
        `(secondary-selection ((h :extend t :background ,.bg-secondary-selection :distant-foreground ,.fg-distant)))
@@ -357,7 +357,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(font-lock-warning-face ((h :foreground ,.fl-warning)))
 
        `(fringe ((h :inherit (default) :foreground ,.grey)))
-       `(button ((h :inherit (link))))
+       `(button ((h :foreground ,.blue)))
        `(link ((h :underline (:color foreground-color :style line) :foreground ,.blue)))
        `(link-visited ((h :underline (:color foreground-color :style line) :foreground ,.purple)))
        `(tooltip ((h :inherit (default) :background ,.bg-tooltip :foreground ,.fg-tooltip)))
@@ -396,12 +396,13 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(mode-line-emphasis ((h :foreground ,.yellow :distant-foreground ,(flip .yellow) :weight bold)))
        `(mode-line-highlight ((h :foreground ,.yellow)))
        `(mode-line-special ((h :background ,.yellow :foreground ,.bg :box (:line-width ,hannover-mode-line-box-width :color ,.yellow :style nil))))
+       `(vertical-border ((h :foreground ,.grey)))
 
        ;; tab-line
        `(tab-line ((h :inherit (header-line) :box nil :foreground ,.fg :weight normal)))
        `(tab-line-close-highlight ((h :foreground ,.red)))
        `(tab-line-highlight ((h :foreground ,.pale-blue)))
-       `(tab-line-tab ((h :inherit (tab-line) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg) :background ,.bg)))
+       `(tab-line-tab ((h :inherit (tab-line) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,(mix .dim .bg 0.2)) :background ,(mix .dim .bg 0.2))))
        `(tab-line-tab-current ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.dim) :background ,.dim)))
        `(tab-line-tab-group ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.2-purple) :background ,.2-purple)))
        `(tab-line-tab-inactive ((h :inherit (tab-line-tab) :box (:line-width (,(round (* 1.5 hannover-tab-line-box-width)) . ,hannover-tab-line-box-width) :color ,.bg-header-line) :background ,.bg-header-line)))
@@ -416,6 +417,12 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(tab-bar-tab-inactive ((h :inherit (tab-bar) :box (:line-width (,(round (* 1.5 hannover-tab-bar-box-width)) . ,hannover-tab-bar-box-width) :color ,.bg-header-line) :background ,.bg-header-line :foreground ,.fg-mode-line-inactive)))
        `(tab-bar-tab-group-inactive ((h :inherit (tab-bar-tab-inactive) :foreground ,.grey)))
        `(tab-bar-tab-ungrouped ((h :inherit (tab-bar-tab-inactive) :foreground ,.grey)))
+
+       `(vtable ((h :inherit (default))))
+
+       ;; mlscroll
+       `(mlscroll-face ((h :foreground ,(mix .bg-mode-line .fg-mode-line 0.5) :background ,(mix .bg .bg-mode-line 0.2))))
+       `(mlscroll-face-inactive ((h :foreground ,(mix .bg-mode-line-inactive .fg-mode-line-inactive 0.4) :background ,(mix .bg .bg-mode-line-inactive 0.2))))
 
        ;; powerline
        `(powerline-active0 ((h :inherit mode-line :box nil)))
@@ -709,14 +716,14 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(show-paren-mismatch ((h :background ,.1-red :foreground ,.fg)))
 
        ;; compilation
-       `(compilation-column-number ((h :foreground ,.purple)))
-       `(compilation-info ((h :foreground ,.green)))
-       `(compilation-line-number ((h :foreground ,.blue)))
-       `(compilation-mode-line-exit ((h :foreground ,.green)))
-       `(compilation-mode-line-fail ((h :foreground ,.red)))
-       `(compilation-mode-line-run ((h :foreground ,.yellow)))
-       `(compilation-warning ((h :foreground ,.yellow)))
-       `(compilation-error ((h :foreground ,.red)))
+       `(compilation-column-number ((h :foreground ,.purple :distant-foreground ,(flip .purple))))
+       `(compilation-info ((h :foreground ,.green :distant-foreground ,(flip .green))))
+       `(compilation-line-number ((h :foreground ,.blue :distant-foreground ,(flip .blue))))
+       `(compilation-mode-line-exit ((h :foreground ,.green :distant-foreground ,(flip .green))))
+       `(compilation-mode-line-fail ((h :foreground ,.red :distant-foreground ,(flip .red))))
+       `(compilation-mode-line-run ((h :foreground ,.yellow :distant-foreground ,(flip .yellow))))
+       `(compilation-warning ((h :foreground ,.yellow :distant-foreground ,(flip .yellow))))
+       `(compilation-error ((h :foreground ,.red :distant-foreground ,(flip .red))))
 
        ;; display-line-numbers
        `(line-number ((h :inherit (shadow))))
@@ -841,7 +848,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(outline-5 ((h :inherit outline-6 :foreground ,(mix .purple .fg 0.3))))
        `(outline-6 ((h :inherit outline-7 :foreground ,(mix .yellow .fg 0.3))))
        `(outline-7 ((h :inherit outline-8 :foreground ,(mix .blue .fg 0.3))))
-       `(outline-8 ((h :weight bold :height ,hannover-outline-height :overline ,.bg :foreground ,(mix .purple .fg 0.3))))
+       `(outline-8 ((h :weight bold :height ,hannover-outline-height ,.bg :foreground ,(mix .purple .fg 0.3))))
 
        ;; org
        `(org-agenda-calendar-event ((h nil)))
@@ -855,16 +862,16 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-agenda-diary ((h nil)))
        `(org-agenda-dimmed-todo-face ((h :foreground ,.grey)))
        `(org-agenda-done ((h :foreground ,.green)))
-       `(org-agenda-filter-category ((h :background ,.bg-mode-line)))
-       `(org-agenda-filter-effort ((h :background ,.bg-mode-line)))
-       `(org-agenda-filter-regexp ((h :background ,.bg-mode-line)))
-       `(org-agenda-filter-tags ((h :background ,.bg-mode-line)))
+       `(org-agenda-filter-category ((h nil)))
+       `(org-agenda-filter-effort ((h nil)))
+       `(org-agenda-filter-regexp ((h nil)))
+       `(org-agenda-filter-tags ((h nil)))
        `(org-agenda-restriction-lock ((h :inherit (org-agenda-column-dateline))))
        `(org-agenda-structure ((h :foreground ,.blue)))
        `(org-archived ((h :foreground ,.grey)))
        `(org-block ((h :background ,(mix .bg .grey 0.2) :extend t)))
-       `(org-block-begin-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic :overline  ,(if hannover-fancy-org-blocks .dim nil))))
-       `(org-block-end-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :slant italic :underline ,(if hannover-fancy-org-blocks `(:color ,.dim :style line :position t) nil))))
+       `(org-block-begin-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :overline  ,(if hannover-fancy-org-blocks .dim nil))))
+       `(org-block-end-line ((h :inherit (org-block) :height ,hannover-org-block-begin-end-height :foreground ,.grey :underline ,(if hannover-fancy-org-blocks `(:color ,.dim :style line :position t) nil))))
        `(org-checkbox ((h :foreground ,.fg :background ,(mix .bg .grey 0.3))))
        `(org-checkbox-statistics-done ((h :inherit (org-done))))
        `(org-checkbox-statistics-todo ((h :inherit (org-todo))))
@@ -878,7 +885,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-document-info ((h :foreground ,.purple)))
        `(org-document-info-keyword ((h :foreground ,.grey)))
        `(org-document-title ((h :weight bold :foreground ,.yellow)))
-       `(org-drawer ((h :weight bold :foreground ,.blue)))
+       `(org-drawer ((h :foreground ,.grey)))
        `(org-ellipsis ((h :underline t :foreground ,.yellow)))
        `(org-footnote ((h :foreground ,.cyan)))
        `(org-formula ((h :foreground ,.green)))
@@ -894,19 +901,19 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-indent ((h :inherit (org-hide))))
        `(org-inlinetask ((h :foreground ,.orange)))
        `(org-latex-and-related ((h :background ,.2-cyan :foreground ,.cyan)))
-       `(org-level-1 ((h :inherit outline-1)))
-       `(org-level-2 ((h :inherit outline-2)))
-       `(org-level-3 ((h :inherit outline-3)))
-       `(org-level-4 ((h :inherit outline-4)))
-       `(org-level-5 ((h :inherit outline-5)))
-       `(org-level-6 ((h :inherit outline-6)))
-       `(org-level-7 ((h :inherit outline-7)))
-       `(org-level-8 ((h :inherit outline-8)))
+       `(org-level-1 ((h :inherit (outline-1) :overline ,.bg)))
+       `(org-level-2 ((h :inherit (outline-2) :overline ,.bg)))
+       `(org-level-3 ((h :inherit (outline-3) :overline ,.bg)))
+       `(org-level-4 ((h :inherit (outline-4) :overline ,.bg)))
+       `(org-level-5 ((h :inherit (outline-5) :overline ,.bg)))
+       `(org-level-6 ((h :inherit (outline-6) :overline ,.bg)))
+       `(org-level-7 ((h :inherit (outline-7) :overline ,.bg)))
+       `(org-level-8 ((h :inherit (outline-8) :overline ,.bg)))
        `(org-link ((h :inherit (link))))
        `(org-list-dt ((h :weight bold)))
        `(org-macro ((h :background ,.2-green :foreground ,.green)))
        `(org-meta-line ((h :slant italic :foreground ,.grey)))
-       `(org-mode-line-clock ((h :background ,.bg-mode-line)))
+       `(org-mode-line-clock ((h nil)))
        `(org-mode-line-clock-overrun ((h :inherit (org-mode-line-clock) :background ,.1-red :foreground ,.bg)))
        `(org-priority ((h :inherit (font-lock-keyword-face))))
        `(org-property-value ((h nil)))
@@ -915,7 +922,7 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(org-scheduled-previously ((h :foreground ,.orange)))
        `(org-scheduled-today ((h :foreground ,.green)))
        `(org-sexp-date ((h :foreground ,.cyan)))
-       `(org-special-keyword ((h :foreground ,.blue)))
+       `(org-special-keyword ((h :foreground ,.grey)))
        `(org-table ((h :foreground ,.fg :background ,(mix .bg .grey 0.2))))
        `(org-tag ((h nil)))
        `(org-tag-group ((h :inherit (org-tag))))
@@ -950,9 +957,12 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(markdown-header-face-6 ((h :inherit outline-6)))
        `(markdown-header-face-7 ((h :inherit outline-7)))
        `(markdown-header-face-8 ((h :inherit outline-8)))
-       `(markdown-highlighting-face ((h :background ,.1-yellow)))
        `(markdown-language-keyword-face ((h :inherit (markdown-markup-face))))
        `(markdown-line-break-face ((h :inherit (markdown-markup-face))))
+       `(markdown-code-face ((h :inherit (fixed-pitch) :background ,(mix .bg .grey 0.3) :extend t)))
+       `(markdown-inline-code-face ((h :inherit (markdown-code-face font-lock-constant-face) :extend t :box (:line-width (-1 . -1) :color ,.dim :style flat-button))))
+       `(markdown-pre-face ((h :inherit (markdown-code-face))))
+       `(markdown-highlighting-face ((h :inherit (match))))
 
        ;; ;; flymake
        `(flymake-error   ((h-tty :underline (:color ,.high-red :style wave) :foreground ,.red)
@@ -962,6 +972,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(flymake-note    ((h-tty :underline (:color ,.green :style wave) :foreground ,.green)
                           (h     :underline (:color ,.green :style wave))))
        `(flymake-note-echo ((h :inherit compilation-info)))
+       `(flymake-warning-echo ((h :inherit compilation-warning)))
+       `(flymake-error-echo ((h :inherit compilation-error)))
 
        ;; ;; Flyspell
        `(flyspell-duplicate ((h-tty :underline (:color ,.high-yellow :style wave) :foreground ,.yellow)
@@ -1027,7 +1039,8 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(font-lock-number-face ((h :foreground ,.fl-const)))
        `(font-lock-misc-punctuation-face ((h :inherit (font-lock-punctuation-face))))
        `(font-lock-operator-face ((h :foreground ,.fl-keyword)))
-       `(font-lock-property-name-face ((h :slant italic)))
+       `(font-lock-property-name-face ((h :foreground ,.fl-variable :slant italic)))
+       `(font-lock-property-use-face ((h :slant italic)))
        `(font-lock-variable-use-face ((h nil)))
        `(font-lock-punctuation-face ((h :foreground ,(mix .grey .fg 0.25))))
 
@@ -1043,6 +1056,40 @@ Set it to 0 or 1 if you use powerline or similar packages."
 
        ;; eglot
        `(eglot-highlight-symbol-face ((h :underline (:color ,.high-cyan :style line))))
+
+       `(eglot-semantic-abstract ((h :inherit (font-lock-keyword-face))))
+       `(eglot-semantic-async ((h nil)))
+       `(eglot-semantic-class ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-comment ((h :inherit (font-lock-comment-face))))
+       `(eglot-semantic-declaration ((h nil)))
+       `(eglot-semantic-decorator ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-defaultLibrary ((h nil)))
+       `(eglot-semantic-definition ((h nil)))
+       `(eglot-semantic-deprecated ((h :strike-through t)))
+       `(eglot-semantic-documentation ((h :inherit (font-lock-doc-face))))
+       `(eglot-semantic-enum ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-enummember ((h :inherit (font-lock-constant-face))))
+       `(eglot-semantic-event ((h :inherit (font-lock-variable-name-face))))
+       `(eglot-semantic-function ((h :inherit (font-lock-function-name-face))))
+       `(eglot-semantic-interface ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-keyword ((h :inherit (font-lock-keyword-face))))
+       `(eglot-semantic-macro ((h :inherit (font-lock-constant-face))))
+       `(eglot-semantic-method ((h :inherit (font-lock-function-name-face))))
+       `(eglot-semantic-modification ((h :inherit (font-lock-function-name-face))))
+       `(eglot-semantic-modifier ((h :inherit (font-lock-function-name-face))))
+       `(eglot-semantic-namespace ((h nil)))
+       `(eglot-semantic-number ((h :inherit (font-lock-constant-face))))
+       `(eglot-semantic-operator ((h :inherit (font-lock-operator-face))))
+       `(eglot-semantic-parameter ((h :inherit (font-lock-variable-name-face) :slant italic)))
+       `(eglot-semantic-property ((h :inherit (font-lock-property-use-face))))
+       `(eglot-semantic-readonly ((h :inherit (font-lock-constant-face))))
+       `(eglot-semantic-regexp ((h :inherit (font-lock-string-face))))
+       `(eglot-semantic-static ((h nil)))
+       `(eglot-semantic-string ((h :inherit (font-lock-string-face))))
+       `(eglot-semantic-struct ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-type ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-typeParameter ((h :inherit (font-lock-type-face))))
+       `(eglot-semantic-variable ((h :inherit (font-lock-variable-name-face))))
 
        ;; lsp
        `(lsp-face-highlight-textual ((h :underline (:color ,.high-yellow :style line))))
@@ -1077,12 +1124,10 @@ Set it to 0 or 1 if you use powerline or similar packages."
        `(lsp-inlay-hint-face ((h :inherit (font-lock-comment-face) :slant normal)))
 
        ;; treemacs
-       `(treemacs-all-the-icons-file-face ((h :foreground ,.yellow)))
-       `(treemacs-all-the-icons-root-face ((h :foreground ,.orange)))
        `(treemacs-directory-face ((h :inherit (default))))
        `(treemacs-git-added-face ((h :foreground ,.green)))
-       `(treemacs-git-modified-face ((h :foreground ,.yellow)))
-       `(treemacs-git-renamed-face ((h :foreground ,.orange)))
+       `(treemacs-git-modified-face ((h :foreground ,.orange)))
+       `(treemacs-git-renamed-face ((h :foreground ,.yellow)))
        `(treemacs-git-untracked-face ((h :foreground ,.cyan)))
        `(treemacs-root-face ((h :inherit (default))))
        `(treemacs-root-remote-face ((h :inherit (treemacs-root-face) :foreground ,.cyan)))
@@ -1097,9 +1142,62 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; which-func
        `(which-func ((h nil)))
 
+       ;; help
+       `(help-key-binding ((h :box (:line-width (-1 . -1) :color ,.dim) :inherit (font-lock-constant-face fixed-pitch))))
+
+       ;; which-key
+       `(which-key-key-face ((h :foreground ,.blue)))
+       `(which-key-separator-face ((h :slant normal :inherit font-lock-comment-face)))
+
+       ;; keymap popup
+       `(keymap-popup-key ((h :foreground ,.blue)))
+       `(keymap-popup-group-header ((h :inherit font-lock-variable-name-face)))
+
        ;; minimap
        `(minimap-active-region-background ((h :background ,.bg-header-line)))
        `(minimap-current-line-face ((h :background ,(mix .1-blue .2-blue 0.4) :extend t)))
+
+       ;; demap
+       `(demap-visible-region-face ((h :background ,.bg-mode-line-inactive :extend t)))
+       `(demap-visible-region-inactive-face ((h nil)))
+       `(demap-current-line-face ((h :background ,.bg :extend t)))
+       `(demap-current-line-inactive-face ((h :inherit (hl-line) :extend t)))
+
+       ;; nerd-icons
+       `(nerd-icons-red ((h :foreground ,.red)))
+       `(nerd-icons-lred ((h :foreground ,(mix .red .fg 0.3))))
+       `(nerd-icons-lred ((h :foreground ,.1-red)))
+       `(nerd-icons-red-alt ((h :foreground ,.red)))
+       `(nerd-icons-green ((h :foreground ,.green)))
+       `(nerd-icons-lgreen ((h :foreground ,(mix .green .fg 0.3))))
+       `(nerd-icons-lgreen ((h :foreground ,.1-green)))
+       `(nerd-icons-yellow ((h :foreground ,.yellow)))
+       `(nerd-icons-lyellow ((h :foreground ,(mix .yellow .fg 0.3))))
+       `(nerd-icons-lyellow ((h :foreground ,.1-yellow)))
+       `(nerd-icons-blue ((h :foreground ,.blue)))
+       `(nerd-icons-lblue ((h :foreground ,(mix .blue .fg 0.3))))
+       `(nerd-icons-lblue ((h :foreground ,.1-blue)))
+       `(nerd-icons-blue-alt ((h :foreground ,.blue)))
+       `(nerd-icons-maroon ((h :foreground ,.yellow)))
+       `(nerd-icons-lmaroon ((h :foreground ,(mix .yellow .fg 0.3))))
+       `(nerd-icons-lmaroon ((h :foreground ,.1-yellow)))
+       `(nerd-icons-purple ((h :foreground ,.purple)))
+       `(nerd-icons-lpurple ((h :foreground ,(mix .purple .fg 0.3))))
+       `(nerd-icons-lpurple ((h :foreground ,.1-purple)))
+       `(nerd-icons-purple-alt ((h :foreground ,.purple)))
+       `(nerd-icons-orange ((h :foreground ,.orange)))
+       `(nerd-icons-lorange ((h :foreground ,(mix .orange .fg 0.3))))
+       `(nerd-icons-lorange ((h :foreground ,.1-orange)))
+       `(nerd-icons-cyan ((h :foreground ,.cyan)))
+       `(nerd-icons-lcyan ((h :foreground ,(mix .cyan .fg 0.3))))
+       `(nerd-icons-lcyan ((h :foreground ,.1-cyan)))
+       `(nerd-icons-cyan-alt ((h :foreground ,.cyan)))
+       `(nerd-icons-pink ((h :foreground ,.red)))
+       `(nerd-icons-lpink ((h :foreground ,(mix .red .fg 0.3))))
+       `(nerd-icons-lpink ((h :foreground ,.1-red)))
+       `(nerd-icons-silver ((h :foreground ,.blue)))
+       `(nerd-icons-lsilver ((h :foreground ,(mix .blue .fg 0.3))))
+       `(nerd-icons-lsilver ((h :foreground ,.1-blue)))
 
        ;; hideshowvis
        `(hideshowvis-hidden-region-face((h :foreground ,.grey :background ,(mix .bg .grey 0.2)
@@ -1112,7 +1210,22 @@ Set it to 0 or 1 if you use powerline or similar packages."
        ;; `(hideshowvis-hidden-fringe-face ((h :foreground ,.red)))
 
        ;; persp
-       `(persp-selected-face ((h :foreground ,.yellow)))))))
+       `(persp-selected-face ((h :foreground ,.yellow)))
+
+       ;; Agent shell
+       `(agent-shell-markdown-table-zebra ((h :inherit (org-table))))
+       `(agent-shell-markdown-inline-code ((h :foreground ,.pale-blue)))
+
+       ;; Poimap
+       `(poimap-face ((h :inherit (mode-line) :box nil)))
+       `(poimap-inactive-face ((h :inherit (mode-line-inactive) :box nil)))
+       `(poimap-visible-window-face ((h :background ,(mix .bg-mode-line (mix .grey .1-blue 0.5) 0.3))))
+       `(poimap-visible-window-inactive-face ((h :background ,(mix .bg-mode-line-inactive .grey 0.3))))
+       `(poimap-diff-hl-insert ((h :foreground ,.green)))
+       `(poimap-diff-hl-change ((h :foreground ,.blue)))
+       `(poimap-diff-hl-delete ((h :foreground ,.red)))
+
+       ))))
 
 (provide 'hannover-theme)
 
